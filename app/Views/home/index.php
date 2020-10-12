@@ -227,7 +227,7 @@
                 <div class="col-10">
                     <div class="row justify-content-center text-center">
                         <?php foreach($kereta as $key) : ?>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <a href=""><?= $key['train_name']; ?></a>
                         </div>
                         <?php endforeach; ?>
