@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
