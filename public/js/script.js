@@ -1,26 +1,26 @@
 const dataStation = [];
-const train = []
-const train_class = []
-const train_fare = []
-const train_id = []
+const train = [];
+const train_class = [];
+const train_fare = [];
+const train_id = [];
 
 setStationData();
 getTrain();
 
-get(".btn-logout").addEventListener('click', function() {
-  const href = this.getAttribute('id');
+get(".btn-logout").addEventListener("click", function () {
+  const href = this.getAttribute("id");
   Swal.fire({
-    title: 'Are you sure want to logout?',
+    title: "Are you sure want to logout?",
     showDenyButton: false,
     showCancelButton: true,
-    confirmButtonText: `Logout`
+    confirmButtonText: `Logout`,
   }).then((result) => {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
       document.location.href = href;
     }
-  })
-})
+  });
+});
 
 get("#card-main").addEventListener("click", function () {
   get(".blank").style.opacity = "1";
@@ -261,8 +261,8 @@ get("#cariTiket").addEventListener("click", function (e) {
     const total = jml_tiket * 100000;
     get("#ticketResult").style.display = "block";
     setTimeout(function () {
-    get(".blank").style.pointerEvents = "none";
-    get(".blank").style.opacity = "0";
+      get(".blank").style.pointerEvents = "none";
+      get(".blank").style.opacity = "0";
     }, 300);
     setTimeout(function () {
       get("#theLoading").style.opacity = "0";
