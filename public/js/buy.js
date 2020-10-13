@@ -13,6 +13,8 @@ get("#beliTiket").addEventListener("click", function () {
     get("#receiptCard").style.position = "absolute";
     get("#receiptCard").style.opacity = "0";
     get("#tiketPlace").innerHTML = "";
+    get("#beliTiket").style.display = "none";
+    get("#lihatDetail").style.display = "block";
 
     setTimeout(() => {
       if (get("#tglPulang") != null) {
@@ -242,8 +244,6 @@ function postTiket(pulang) {
           </div>
             `;
         }
-        get("#beliTiket").style.display = "none";
-        get("#lihatDetail").style.display = "block";
         get("#tiketPlace").innerHTML = string;
         setTimeout(() => {
           JsBarcode("#barcodeTiket", result.data.no_pesanan, {
@@ -257,6 +257,8 @@ function postTiket(pulang) {
           });
         }, 200);
       } else {
+        get("#beliTiket").style.display = "block";
+        get("#lihatDetail").style.display = "none";
         alert(result.message);
       }
     },
