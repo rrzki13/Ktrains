@@ -43,6 +43,7 @@
     <?php elseif ($active == 'history') : ?>
         <script src="js/history.js"></script>
     <?php elseif ($active == 'buy') : ?>
+        <script src="js/jquery-3.1.1.min.js"></script>
         <script src="js/buy.js"></script>
     <?php endif; ?>
 

@@ -11,9 +11,8 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <form action=""></form>
-          <input type="hidden" name="id_kereta" value="<?= $data_pesan_tiket['id_kereta']; ?>">
-          <input type="hidden" name="id_user" value="<?= session()->get('id'); ?>">
+          <input type="hidden" name="id_kereta" id="id_kereta" value="<?= $data_pesan_tiket['id_kereta']; ?>">
+          <input type="hidden" name="id_user" id="id_user" value="<?= session()->get('id'); ?>">
           <div class="row mb-2">
             <div class="col-md-6">
               <label for="namaKereta" class="form-label">Nama Kereta</label>
@@ -119,13 +118,13 @@
             </div>
             <?php if(isset($data_pesan_tiket['pulang'])): ?>
               <div class="col-md-6">
-              <label for="tglBerangkat" class="form-label"
+              <label for="tglPulang" class="form-label"
                 >Tanggal Pulang</label
               >
               <input
                 type="text"
                 class="form-control"
-                id="tglBerangkat"
+                id="tglPulang"
                 value="<?= $data_pesan_tiket['pulang']; ?>"
                 readonly
               />
@@ -136,6 +135,7 @@
             <div class="col-md-12">
               <h3>Sub total</h3>
               <span class="text-muted" id="total"><?= $data_pesan_tiket['total']; ?></span>
+              <small id="totalOy" class="d-none"><?= $data_pesan_tiket['total']; ?></small>
             </div>
           </div>
           <div class="row mb-2">
