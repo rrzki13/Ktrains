@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 // function
 function checkedValidate() {
   if (get("#check-pulang").checked) {
