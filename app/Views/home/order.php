@@ -46,6 +46,8 @@
         </div>
     </div>
     <div class="row">
+        <?php if ($orderReceipt) : ?>
+        <?php foreach ($dataReceipt as $key) : ?>
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body">
@@ -56,38 +58,48 @@
                     </div>
                     <div class="row">
                         <div class="col-6">No pesanan</div>
-                        <div class="col-6 text-right">Bima</div>
+                        <div class="col-6 text-right"><?= $key['no_pesanan']; ?></div>
                     </div>
                     <div class="row">
                         <div class="col-6">Stasiun awal</div>
-                        <div class="col-6 text-right">Bima</div>
+                        <div class="col-6 text-right"><?= $key['stasiun_awal']; ?></div>
                     </div>
                     <div class="row">
                         <div class="col-6">Stasiun akhir</div>
-                        <div class="col-6 text-right">Bima</div>
+                        <div class="col-6 text-right"><?= $key['stasiun_akhir']; ?></div>
                     </div>
                     <div class="row">
                         <div class="col-6">Berangkat</div>
-                        <div class="col-6 text-right">Bima</div>
+                        <div class="col-6 text-right"><?= $key['tanggal_berangkat']; ?></div>
                     </div>
                     <div class="row">
                         <div class="col-6">Total</div>
-                        <div class="col-6 text-right">Bima</div>
+                        <div class="col-6 text-right"><?= $key['total']; ?></div>
                     </div>
                     <div class="row">
                         <div class="col-6">status</div>
-                        <div class="col-6 text-right text-success">Lunas</div>
+                        <div class="col-6 text-right <?= ($key['confirmed'] == 1) ? 'text-success' : 'text-danger'; ?>">
+                            <?= ($key['confirmed'] == 1) ? 'Lunas' : 'belum lunas'; ?>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
                     <div class="row justify-content-end">
                         <div class="col-6">
-                            <button class="btn btn-success w-100 btn-detail">Detail</button>
+                            <button class="btn  <?= ($key['confirmed'] == 1) ? 'btn-success' : 'btn-danger'; ?> w-100 btn-detail" id="<?= $key['id']; ?> ">Detail</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <?php endforeach ?>
+        <?php else : ?>
+            <div class="row">
+                <div class="col-12 text-center font-italic">
+                    <h2 class="mt-3">You dont have any order now :(</h2>
+                </div>
+            </div>
+        <?php endif ?>
     </div>
 </div>
 
