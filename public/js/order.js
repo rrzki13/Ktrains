@@ -28,9 +28,7 @@ for (let i = 0; i < detail_button.length; i++) {
     get("#receipt").style.pointerEvents = "none";
     get("#receipt").innerHTML = "";
 
-    setTimeout(() => {
-      test(id, no_pesanan.textContent, id_user);
-    }, 3000);
+    test(id, no_pesanan.textContent, id_user);
   });
 }
 

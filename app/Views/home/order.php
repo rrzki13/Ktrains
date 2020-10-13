@@ -56,6 +56,11 @@
                         <div class="col-6">
                             <p class="font-weight-bold">Data Tiket</p>
                         </div>
+                        <?php if ($key['tanggal_pulang'] != 0) : ?>
+                        <div class="col-6 text-primary">
+                            <i class="fa fa-check-circle mr-2"></i>tiket pulang pergi
+                        </div>
+                        <?php endif ?>
                     </div>
                     <div class="row">
                         <div class="col-6">No pesanan</div>
