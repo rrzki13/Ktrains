@@ -2,6 +2,7 @@
 
 <?= $this->section('content'); ?>
 <!-- * section tiket -->
+<span id="myId" class="d-none"><?= session()->get('id'); ?></span>
 <div class="container">
       <div class="row justify-content-center mt-5">
         <div class="col-md-4 position-absolute">
@@ -49,7 +50,7 @@
         <?php if ($orderReceipt) : ?>
         <?php foreach ($dataReceipt as $key) : ?>
         <div class="col-md-4 mb-3">
-            <div class="card">
+            <div class="card cardTiketOrder">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">

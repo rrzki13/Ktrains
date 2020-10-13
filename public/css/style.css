@@ -325,7 +325,7 @@ a {
 
   .blank {
     width: 100vw;
-    height: 150vw;
+    height: 1500vw;
     background-color: rgba(0, 0, 0, 0.8);
     position: fixed;
     z-index: 8;
