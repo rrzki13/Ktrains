@@ -135,7 +135,7 @@
           <div class="row mb-3">
             <div class="col-md-12">
               <h3>Sub total</h3>
-              <span class="text-muted" id="total">IDR. <?= $data_pesan_tiket['total']; ?></span>
+              <span class="text-muted" id="total"><?= $data_pesan_tiket['total']; ?></span>
             </div>
           </div>
           <div class="row mb-2">
