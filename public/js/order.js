@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const detail_button = getAll(".btn-detail");
 for (let i = 0; i < detail_button.length; i++) {
   const btn = detail_button[i];
@@ -8,7 +9,8 @@ for (let i = 0; i < detail_button.length; i++) {
     get("#cardShowTiket").style.opacity = "1";
     get("#cardShowTiket").style.pointerEvents = "visible";
     get("#loadReceipt").style.opacity = 1;
-    get("#loadReceipt").style.position = "static";
+    get("#loadReceipt").style.position = "";
+    get("#loadReceipt").style.minHeight = "300px";
     get("#receipt").style.opacity = 0;
     get("#receipt").style.pointerEvents = "none";
     get("#receipt").innerHTML = "";
@@ -16,6 +18,7 @@ for (let i = 0; i < detail_button.length; i++) {
     setTimeout(() => {
       get("#loadReceipt").style.opacity = 0;
       get("#loadReceipt").style.position = "absolute";
+      get("#loadReceipt").style.minHeight = "0";
       get("#receipt").style.opacity = 1;
       get("#receipt").style.pointerEvents = "visibled";
       let string = `
@@ -104,4 +107,6 @@ get(".blank").addEventListener("click", function () {
   get(".blank").style.pointerEvents = "none";
   get("#cardShowTiket").style.opacity = "0";
   get("#cardShowTiket").style.pointerEvents = "none";
+  get("#loadReceipt").style.minHeight = "0";
+  get("#receipt").innerHTML = "";
 });

@@ -12,7 +12,6 @@
               </div>
               <div
                 class="row mt-3 justify-content-center"
-                style="min-height: 300px;"
                 id="loadReceipt"
               >
                 <div class="col-3 my-5">
@@ -35,7 +34,7 @@
 
 <!-- main -->
 
-<div class="container my-5" style="min-height: 400px">
+<div class="container mb-5" style="min-height: 400px">
     <div class="row">
         <div class="col-12">
             <h3>Order tiket</h3>
