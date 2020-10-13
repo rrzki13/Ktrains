@@ -42,6 +42,8 @@
         <script src="js/script.js"></script>
     <?php elseif ($active == 'history') : ?>
         <script src="js/history.js"></script>
+    <?php elseif ($active == 'buy') : ?>
+        <script src="js/buy.js"></script>
     <?php endif; ?>
 
 </body>

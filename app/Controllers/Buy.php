@@ -13,7 +13,7 @@ class Buy extends BaseController
 		if ($dataTest) {
 			$data = [
 				"title" => "Ktrains | Buy Ticket",
-				"active" => "buy",
+				"active" => "home",
 				"data_pesan_tiket" => $dataTest
 			];
 			return view('buy/index', $data);

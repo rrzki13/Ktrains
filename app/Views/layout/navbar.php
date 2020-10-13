@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link <?= ($active == 'home') ? 'active' : ''; ?>" href="/">Home</a>
+                    <a class="nav-link <?= ($active == 'home') ? 'active' : ''; ?>  <?= ($active == 'buy') ? 'active' : ''; ?>" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?= ($active == 'order') ? 'active' : ''; ?>" href="/Order">Pesanan</a>
