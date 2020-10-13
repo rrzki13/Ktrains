@@ -143,7 +143,7 @@
               <button class="btn btn-primary w-100" id="beliTiket">
                 Beli tiket
               </button>
-              <a href="order.html" class="text-primary" id="lihatDetail"
+              <a href="/Order" class="text-primary" id="lihatDetail"
                 >Lihat Detail</a
               >
             </div>
