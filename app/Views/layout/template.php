@@ -46,6 +46,9 @@
         <script src="js/jquery-3.1.1.min.js"></script>
         <script src="js/JsBarcode.all.min.js"></script>
         <script src="js/buy.js"></script>
+    <?php elseif ($active == 'order') : ?>
+        <script src="js/JsBarcode.all.min.js"></script>
+        <script src="js/order.js"></script>
     <?php endif; ?>
 
 </body>

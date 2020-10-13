@@ -273,6 +273,16 @@ a {
   display: none;
 }
 
+#cardShowTiket, #tempCard {
+  z-index: 11;
+}
+
+#cardShowTiket {
+  opacity: 0;
+  pointer-events: none;
+  transition: .5s;
+}
+
 @media (max-width: 768px) {
   .none-in-md {
     display: none;
