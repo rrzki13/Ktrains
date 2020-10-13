@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 // function
+const formater = new FormatMoney();
+
 function checkedValidate() {
   if (get("#check-pulang").checked) {
     if (
@@ -45,8 +47,9 @@ function checkedValidate() {
 }
 
 function appendTiket(jml_tiket, total) {
-  let j,k;
-  j =0; k=0;
+  let j, k;
+  j = 0;
+  k = 0;
   for (i = 0; i < train.length; i++) {
     const node = document.createElement("DIV");
     node.classList.add("col-md-4");
@@ -60,16 +63,16 @@ function appendTiket(jml_tiket, total) {
     col.classList.add("shadow");
     col.classList.add("rounded");
     col.style.backgroundColor = "#fff";
-    const nama_kereta = train[i]
-    const kelas_kereta = train_class[k]
-    const harga_kereta = train_fare[j]
-    const harga = parseInt(harga_kereta) * parseInt(jml_tiket)
+    const nama_kereta = train[i];
+    const kelas_kereta = train_class[k];
+    const harga_kereta = train_fare[j];
+    const harga = parseInt(harga_kereta) * parseInt(jml_tiket);
     const id_kereta = train_id[i];
 
-    const href = "http://localhost:8080/BuyMyTicket"
+    const href = "http://localhost:8080/BuyMyTicket";
 
     // change to money format
-    const formatHarga = formatMoney(harga);
+    const formatHarga = formater.toRupiah(harga);
 
     const test =
       `
@@ -81,7 +84,7 @@ function appendTiket(jml_tiket, total) {
                     <div class="row mt-3">
                       <div class="col-6">Nama Kereta</div>
                       <div class="col-6 text-right">` +
-       nama_kereta +
+      nama_kereta +
       `</div>
                     </div>
                     <div class="row">
@@ -110,28 +113,54 @@ function appendTiket(jml_tiket, total) {
                     </div>
                     <div class="row">
                       <div class="col-6">Harga</div>
-                      <div class="col-6 text-right">Rp. ` +
+                      <div class="col-6 text-right">` +
       formatHarga +
       `</div>
                     </div>
                     <div class="row">
                       <div class="col-6">Kelas</div>
-                      <div class="col-6 text-right">`+kelas_kereta+`</div>
+                      <div class="col-6 text-right">` +
+      kelas_kereta +
+      `</div>
                     </div>
                     <div class="row mt-3">
                       <div class="col-6">
-                      <form class="d-inline" method="POST" action = "`+href+`">
-                        <input type="hidden" name="nama_kereta" value="`+nama_kereta+`"/>
-                        <input type="hidden" name="kelas_kereta" value="`+kelas_kereta+`"/>
-                        <input type="hidden" name="harga_kereta" value="`+harga_kereta+`"/>
-                        <input type="hidden" name="jumlahTiket" value="`+jml_tiket+`"/>
-                        <input type="hidden" name="berangkat" value="`+get("#berangkat").value+`"/>
-                        <input type="hidden" name="dari" value="`+get("#dari").value+`"/>
-                        <input type="hidden" name="ke" value="`+get("#ke").value+`"/>
-                        <input type="hidden" name="dewasa" value="`+get("#dewasaIpt").value+`"/>
-                        <input type="hidden" name="anak" value="`+get("#anakIpt").value+`"/>
-                        <input type="hidden" name="total" value="`+harga+`"/>
-                        <input type="hidden" name="id_kereta" value="`+id_kereta+`"/>
+                      <form class="d-inline" method="POST" action = "` +
+      href +
+      `">
+                        <input type="hidden" name="nama_kereta" value="` +
+      nama_kereta +
+      `"/>
+                        <input type="hidden" name="kelas_kereta" value="` +
+      kelas_kereta +
+      `"/>
+                        <input type="hidden" name="harga_kereta" value="` +
+      harga_kereta +
+      `"/>
+                        <input type="hidden" name="jumlahTiket" value="` +
+      jml_tiket +
+      `"/>
+                        <input type="hidden" name="berangkat" value="` +
+      get("#berangkat").value +
+      `"/>
+                        <input type="hidden" name="dari" value="` +
+      get("#dari").value +
+      `"/>
+                        <input type="hidden" name="ke" value="` +
+      get("#ke").value +
+      `"/>
+                        <input type="hidden" name="dewasa" value="` +
+      get("#dewasaIpt").value +
+      `"/>
+                        <input type="hidden" name="anak" value="` +
+      get("#anakIpt").value +
+      `"/>
+                        <input type="hidden" name="total" value="` +
+      harga +
+      `"/>
+                        <input type="hidden" name="id_kereta" value="` +
+      id_kereta +
+      `"/>
                         <button class="btn btn-primary w-100" type="submit">Beli tiket</button>
                       </form>
                       </div>
@@ -141,7 +170,8 @@ function appendTiket(jml_tiket, total) {
     node.appendChild(row);
     row.appendChild(col);
     get("#tiketPlace").appendChild(node);
-    j++;k++;
+    j++;
+    k++;
   }
 }
 
@@ -150,50 +180,50 @@ function getTrain() {
   request.open("GET", "http://localhost/ktrains-rest/api/Train", true);
 
   request.onload = function () {
-      if (this.status >= 200 && this.status < 400) {
-          // Success!
-          var data = JSON.parse(this.response);
-          if (data.status) {
-              const dataValue = data.data;
-              for (i=0;i<dataValue.length;i++) {
-                  const trainData = dataValue[i].train_name
-                  const trainFare = dataValue[i].train_fare
-                  const trainClass = dataValue[i].train_class
-                  const trainId = dataValue[i].id
-                  train.push(trainData)
-                  train_fare.push(trainFare)
-                  train_class.push(trainClass)
-                  train_id.push(trainId)
-              }
-          }
-          
-      } else {
-          // We reached our target server, but it returned an error
-          return false
+    if (this.status >= 200 && this.status < 400) {
+      // Success!
+      var data = JSON.parse(this.response);
+      if (data.status) {
+        const dataValue = data.data;
+        for (i = 0; i < dataValue.length; i++) {
+          const trainData = dataValue[i].train_name;
+          const trainFare = dataValue[i].train_fare;
+          const trainClass = dataValue[i].train_class;
+          const trainId = dataValue[i].id;
+          train.push(trainData);
+          train_fare.push(trainFare);
+          train_class.push(trainClass);
+          train_id.push(trainId);
+        }
       }
+    } else {
+      // We reached our target server, but it returned an error
+      return false;
+    }
   };
 
   request.onerror = function () {
-  // There was a connection error of some sort
-  return false
+    // There was a connection error of some sort
+    return false;
   };
 
   request.send();
 }
 
 function appendTiket2(jml_tiket, total) {
-  var j = 0;k=0;
+  var j = 0;
+  k = 0;
   for (i = 0; i < train.length; i++) {
     const node = document.createElement("DIV");
     node.classList.add("col-md-6");
-    const nama_kereta = train[i]
-    const kelas_kereta = train_class[k]
-    const harga_kereta = train_fare[j]
-    const total = parseInt(harga_kereta) * parseInt(jml_tiket)
-    const total_format = formatMoney(total)
+    const nama_kereta = train[i];
+    const kelas_kereta = train_class[k];
+    const harga_kereta = train_fare[j];
+    const total = parseInt(harga_kereta) * parseInt(jml_tiket);
+    const total_format = formater.toRupiah(total);
     const id_kereta = train_id[i];
 
-    const href = "http://localhost:8080/BuyMyTicket"
+    const href = "http://localhost:8080/BuyMyTicket";
 
     const string =
       `
@@ -246,29 +276,57 @@ function appendTiket2(jml_tiket, total) {
                 </div>
                 <div class="row">
                   <div class="col-6">Harga</div>
-                  <div class="col-6 text-right">Rp. ` +
+                  <div class="col-6 text-right">` +
       total_format +
       `</div>
                 </div>
                 <div class="row">
                   <div class="col-6">Kelas</div>
-                  <div class="col-6 text-right">`+kelas_kereta+`</div>
+                  <div class="col-6 text-right">` +
+      kelas_kereta +
+      `</div>
                 </div>
                 <div class="row mt-3">
                   <div class="col-6">
-                  <form class="d-inline" method="POST" action = "`+href+`">
-                        <input type="hidden" name="nama_kereta" value="`+nama_kereta+`"/>
-                        <input type="hidden" name="kelas_kereta" value="`+kelas_kereta+`"/>
-                        <input type="hidden" name="harga_kereta" value="`+harga_kereta+`"/>
-                        <input type="hidden" name="jumlahTiket" value="`+jml_tiket+`"/>
-                        <input type="hidden" name="berangkat" value="`+get("#berangkat").value+`"/>
-                        <input type="hidden" name="pulang" value="`+get("#pulang").value+`"/>
-                        <input type="hidden" name="dari" value="`+get("#dari").value+`"/>
-                        <input type="hidden" name="ke" value="`+get("#ke").value+`"/>
-                        <input type="hidden" name="dewasa" value="`+get("#dewasaIpt").value+`"/>
-                        <input type="hidden" name="anak" value="`+get("#anakIpt").value+`"/>
-                        <input type="hidden" name="total" value="`+total*2+`"/>
-                        <input type="hidden" name="id_kereta" value="`+id_kereta+`"/>
+                  <form class="d-inline" method="POST" action = "` +
+      href +
+      `">
+                        <input type="hidden" name="nama_kereta" value="` +
+      nama_kereta +
+      `"/>
+                        <input type="hidden" name="kelas_kereta" value="` +
+      kelas_kereta +
+      `"/>
+                        <input type="hidden" name="harga_kereta" value="` +
+      harga_kereta +
+      `"/>
+                        <input type="hidden" name="jumlahTiket" value="` +
+      jml_tiket +
+      `"/>
+                        <input type="hidden" name="berangkat" value="` +
+      get("#berangkat").value +
+      `"/>
+                        <input type="hidden" name="pulang" value="` +
+      get("#pulang").value +
+      `"/>
+                        <input type="hidden" name="dari" value="` +
+      get("#dari").value +
+      `"/>
+                        <input type="hidden" name="ke" value="` +
+      get("#ke").value +
+      `"/>
+                        <input type="hidden" name="dewasa" value="` +
+      get("#dewasaIpt").value +
+      `"/>
+                        <input type="hidden" name="anak" value="` +
+      get("#anakIpt").value +
+      `"/>
+                        <input type="hidden" name="total" value="` +
+      total * 2 +
+      `"/>
+                        <input type="hidden" name="id_kereta" value="` +
+      id_kereta +
+      `"/>
                         <button class="btn btn-primary w-100" type="submit">Beli tiket</button>
                       </form>
                   </div>
@@ -312,13 +370,15 @@ function appendTiket2(jml_tiket, total) {
                 </div>
                 <div class="row">
                   <div class="col-6">Harga</div>
-                  <div class="col-6 text-right">Rp. ` +
+                  <div class="col-6 text-right">` +
       total_format +
       `</div>
                 </div>
                 <div class="row">
                   <div class="col-6">Kelas</div>
-                  <div class="col-6 text-right">`+kelas_kereta+`</div>
+                  <div class="col-6 text-right">` +
+      kelas_kereta +
+      `</div>
                 </div>
               </div>
             </div>
@@ -329,7 +389,8 @@ function appendTiket2(jml_tiket, total) {
       `;
     node.innerHTML = string;
     get("#tiketPlace").appendChild(node);
-    j++;k++;
+    j++;
+    k++;
   }
 }
 
@@ -464,7 +525,6 @@ function checkJml(select, check = true) {
   }
 }
 
-
 function ValidateEmail(r, report = true) {
   const id = r.getAttribute("id");
   if (
@@ -474,12 +534,12 @@ function ValidateEmail(r, report = true) {
   ) {
     if (report) {
       get("#" + id + "EmailValidate").innerHTML = "";
-    }    
+    }
     return true;
   }
   if (report) {
-      get("#" + id + "EmailValidate").innerHTML = "Alamat Email tidak valid";
-  }  
+    get("#" + id + "EmailValidate").innerHTML = "Alamat Email tidak valid";
+  }
   return false;
 }
 
@@ -488,17 +548,18 @@ function justText(r, report = true) {
   if (r.value == "") {
     if (report) {
       get("#" + id + "TextValidate").innerHTML = "Harus diisi";
-    }    
+    }
     return false;
-  }else if (/^[a-zA-Z][a-z A-Z]*$/.test(r.value)) {
+  } else if (/^[a-zA-Z][a-z A-Z]*$/.test(r.value)) {
     if (report) {
-      get("#" + id + "TextValidate").innerHTML = "";      
+      get("#" + id + "TextValidate").innerHTML = "";
     }
     return true;
-  }else {
+  } else {
     if (report) {
-      get("#" + id + "TextValidate").innerHTML = "Hanya boleh menggunakan huruf";
-    }    
+      get("#" + id + "TextValidate").innerHTML =
+        "Hanya boleh menggunakan huruf";
+    }
     return false;
   }
 }
@@ -507,28 +568,29 @@ function justUsername(r, report = true) {
   const id = r.getAttribute("id");
   if (r.value == "") {
     if (report) {
-       get("#" + id + "UsernameValidate").innerHTML = "Harus diisi";
-    }   
+      get("#" + id + "UsernameValidate").innerHTML = "Harus diisi";
+    }
     return false;
-  }else if(r.value.length < 5){
+  } else if (r.value.length < 5) {
     if (report) {
       get("#" + id + "UsernameValidate").innerHTML = "Minimal 5 karakter";
-    }    
+    }
     return false;
-  }else if(r.value.length > 11){
+  } else if (r.value.length > 11) {
     if (report) {
-       get("#" + id + "UsernameValidate").innerHTML = "Maksimal 10 karakter";
-    }   
+      get("#" + id + "UsernameValidate").innerHTML = "Maksimal 10 karakter";
+    }
     return false;
-  }else if (/^[a-zA-Z0-9]*$/.test(r.value)) {
+  } else if (/^[a-zA-Z0-9]*$/.test(r.value)) {
     if (report) {
       get("#" + id + "UsernameValidate").innerHTML = "";
-    }    
+    }
     return true;
-  }else {
+  } else {
     if (report) {
-      get("#" + id + "UsernameValidate").innerHTML = "Hanya boleh menggunakan huruf dan angka";
-    }    
+      get("#" + id + "UsernameValidate").innerHTML =
+        "Hanya boleh menggunakan huruf dan angka";
+    }
     return false;
   }
 }
@@ -538,19 +600,19 @@ function justPassword(r, report = true) {
   if (r.value == "") {
     if (report) {
       get("#" + id + "PasswordValidate").innerHTML = "Harus diisi";
-    }    
+    }
     return false;
-  }else if(r.value.length < 5){
+  } else if (r.value.length < 5) {
     if (report) {
       get("#" + id + "PasswordValidate").innerHTML = "Minimal 5 karakter";
-    }    
+    }
     return false;
-  }else if(r.value.length > 21){
+  } else if (r.value.length > 21) {
     if (report) {
       get("#" + id + "PasswordValidate").innerHTML = "Maksimal 21 karakter";
-    }    
+    }
     return false;
-  }else {
+  } else {
     if (report) {
       get("#" + id + "PasswordValidate").innerHTML = "";
     }
@@ -559,15 +621,24 @@ function justPassword(r, report = true) {
 }
 
 function formatMoney(number, decPlaces, decSep, thouSep) {
-  decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
-  decSep = typeof decSep === "undefined" ? "." : decSep;
+  (decPlaces = isNaN((decPlaces = Math.abs(decPlaces))) ? 2 : decPlaces),
+    (decSep = typeof decSep === "undefined" ? "." : decSep);
   thouSep = typeof thouSep === "undefined" ? "," : thouSep;
   var sign = number < 0 ? "-" : "";
-  var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
+  var i = String(
+    parseInt((number = Math.abs(Number(number) || 0).toFixed(decPlaces)))
+  );
   var j = (j = i.length) > 3 ? j % 3 : 0;
-  
-  return sign +
+
+  return (
+    sign +
     (j ? i.substr(0, j) + thouSep : "") +
     i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
-    (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+    (decPlaces
+      ? decSep +
+        Math.abs(number - i)
+          .toFixed(decPlaces)
+          .slice(2)
+      : "")
+  );
 }
