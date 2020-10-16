@@ -276,7 +276,7 @@ get("#cariTiket").addEventListener("click", function (e) {
       } else {
         appendTiket(jml_tiket, total);
       }
-    }, 3000);
+    }, 1500);
   } else {
     alert("false");
   }

@@ -16,17 +16,15 @@ get("#beliTiket").addEventListener("click", function () {
     get("#beliTiket").style.display = "none";
     get("#lihatDetail").style.display = "block";
 
-    setTimeout(() => {
-      if (get("#tglPulang") != null) {
-        // * if tiket pulang pergi
-        // TODO: buat method post untuk tiket pulang pergi
-        postTiket(get("#tglPulang").value);
-      } else {
-        // * if tike sekali jalan
-        // TODO: buat method post untuk tiket sekali jalan
-        postTiket(0);
-      }
-    }, 3000);
+    if (get("#tglPulang") != null) {
+      // * if tiket pulang pergi
+      // TODO: buat method post untuk tiket pulang pergi
+      postTiket(get("#tglPulang").value);
+    } else {
+      // * if tike sekali jalan
+      // TODO: buat method post untuk tiket sekali jalan
+      postTiket(0);
+    }
   }
 });
 
