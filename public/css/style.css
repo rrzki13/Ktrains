@@ -282,10 +282,56 @@ a {
   pointer-events: none;
   transition: .5s;
 }
+#restore {
+  width: 65px;
+  cursor: pointer;
+  height: 65px;
+  transition: .5s;
+  border-radius: 32px;
+  background-color: #fff;
+  position: fixed;
+  color: #fff;
+  overflow: hidden;
+  margin-top: -5rem;
+  z-index: 7;
+}
+
+#restore:hover {
+  width: 200px;
+  color: #007bff;
+}
+
+.card-tiket {
+  margin-top: -25rem;
+  min-height: 250px;
+  z-index: 10;
+}
+
+.bodyTiket {
+  min-height: 200px;
+  background-color: #f5f5f5;
+}
+
+.headTiket, .footTiket {
+  min-height: 25px;
+  background-color: #f67524;
+}
+
+#theTiketHistory {
+  opacity: 0;
+  transition: .5s;
+  z-index: 9;
+  pointer-events: none;
+}
 
 @media (max-width: 768px) {
   .none-in-md {
     display: none;
+  }
+
+  #restore {
+    margin-top: -5rem;
+    margin-right: 2rem;
   }
 
   #pilihStasiun1 {
