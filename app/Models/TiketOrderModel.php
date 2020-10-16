@@ -13,7 +13,7 @@ class TiketOrderModel extends Model
     }
 
     public function getMyOrder($id) {
-        return $this->where(['id_pemesan' => $id])->where(['confirmed' => 1])->where(['deleted' => 0])->findAll();
+        return $this->where(['id_pemesan' => $id,'confirmed' => "1",'deleted' => "0"])->findAll();
     }
     
 }

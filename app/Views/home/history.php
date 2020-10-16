@@ -4,6 +4,7 @@
 <!-- main -->
 
 <div class="container my-5" style="min-height: 400px">
+<div class="myId" style="display: none;"><?= session()->get('id'); ?></div>
   <div class="row">
     <div class="col-12">
       <h3>Histori Transaksi</h3>
@@ -15,8 +16,8 @@
     </div>
   </div>
   <?php if ($history) : ?>
-    <?php foreach ($history as $key) : ?>
       <div class="row">
+    <?php foreach ($history as $key) : ?>
         <div class="col-md-4 mb-3 card-container">
           <div class="card shadow-sm">
             <div class="card-body">
@@ -48,8 +49,8 @@
             </div>
           </div>
         </div>
-      </div>
     <?php endforeach ?>
+      </div>
   <?php else : ?>
     <div class="row my-3" id="noHistory">
       <div class="col-12 text-center">

@@ -299,12 +299,12 @@ a {
 }
 
 .bodyTiket {
-  height: 200px;
+  min-height: 200px;
   background-color: #f5f5f5;
 }
 
 .headTiket, .footTiket {
-  height: 25px;
+  min-height: 25px;
   background-color: #f67524;
 }
 
@@ -321,8 +321,8 @@ a {
   }
 
   #restore {
-    margin-top: -10rem;
-    margin-right: 3rem;
+    margin-top: -5rem;
+    margin-right: 2rem;
   }
 
   #pilihStasiun1 {
