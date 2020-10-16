@@ -12,13 +12,12 @@ class TiketOrderModel extends Model
         return $this->findAll();
     }
 
-<<<<<<< HEAD
     public function getByUserId($id) {
         return $this->where(['id_pemesan' => $id])->findAll();
-=======
+    }
+    
     public function getMyOrder($id) {
         return $this->where(['id_pemesan' => $id,'confirmed' => "1",'deleted' => "0"])->findAll();
->>>>>>> history
     }
     
 }
