@@ -38,13 +38,13 @@
     <script src="js/classes.js"></script>
     <script src="js/function.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="js/JsBarcode.all.min.js"></script>
     <?php if ($active == 'home') : ?>
         <script src="js/script.js"></script>
     <?php elseif ($active == 'history') : ?>
         <script src="js/history.js"></script>
     <?php elseif ($active == 'buy') : ?>
         <script src="js/jquery-3.1.1.min.js"></script>
-        <script src="js/JsBarcode.all.min.js"></script>
         <script src="js/buy.js"></script>
     <?php endif; ?>
 

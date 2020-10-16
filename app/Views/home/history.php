@@ -20,66 +20,61 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4 mb-3 card-container">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="font-weight-bold">Histori Tiket</p>
-                        </div>
-                        <div class="col-6 text-right">
-                            <i class="fa fa-times point delete" id="1"></i>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5">No pesanan</div>
-                        <div class="col-2 text-center">:</div>
-                        <div class="col-5 text-right">1598190426</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5">status</div>
-                        <div class="col-2 text-center">:</div>
-                        <div class="col-5 text-right text-success">Lunas</div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 text-right">
-                            <p class="text-primary point">Lihat Tiket</p>
-                        </div>
-                    </div>
+    <div class="col-md-4 mb-3 card-container">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <p class="font-weight-bold">Histori Tiket</p>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3 card-container">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="font-weight-bold">Histori Tiket</p>
-                        </div>
-                        <div class="col-6 text-right">
-                            <i class="fa fa-times point delete" id="2"></i>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5">No pesanan</div>
-                        <div class="col-2 text-center">:</div>
-                        <div class="col-5 text-right">1598190427</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5">status</div>
-                        <div class="col-2 text-center">:</div>
-                        <div class="col-5 text-right text-success">Lunas</div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 text-right">
-                            <p class="text-primary point">Lihat Tiket</p>
-                        </div>
-                    </div>
+                <div class="col-6 text-right">
+                  <i class="fa fa-times point delete" id="1"></i>
                 </div>
+              </div>
+              <div class="row">
+                <div class="col-5">No pesanan</div>
+                <div class="col-2 text-center">:</div>
+                <div class="col-5 text-right">1598190426</div>
+              </div>
+              <div class="row">
+                <div class="col-5">status</div>
+                <div class="col-2 text-center">:</div>
+                <div class="col-5 text-right text-success">Lunas</div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-12 text-right">
+                  <p class="text-primary point lihatTiket" id="1">
+                    Lihat Tiket
+                  </p>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
     </div>
 </div>
 
 <!-- /main -->
+
+<!-- * restore -->
+
+<div class="container">
+    <div class="row justify-content-end">
+       <div class="shadow p-3" id="restore" data-id="index.html">
+          <img src="img/restore.png" width="35" height="35" />
+          <span class="ml-3 font-weight-bold">Restore Tiket</span>
+        </div>
+    </div>
+</div>
+
+    <!-- * /restore -->
+
+    <!-- * Tiket -->
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 p-2 position-absolute" id="theTiketHistory"></div>
+      </div>
+    </div>
+<!-- * /Tiket -->
+
 <?= $this->endSection(); ?>

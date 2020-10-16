@@ -273,9 +273,56 @@ a {
   display: none;
 }
 
+#restore {
+  width: 65px;
+  cursor: pointer;
+  height: 65px;
+  transition: .5s;
+  border-radius: 32px;
+  background-color: #fff;
+  position: fixed;
+  color: #fff;
+  overflow: hidden;
+  margin-top: -5rem;
+  z-index: 7;
+}
+
+#restore:hover {
+  width: 200px;
+  color: #007bff;
+}
+
+.card-tiket {
+  margin-top: -25rem;
+  min-height: 250px;
+  z-index: 10;
+}
+
+.bodyTiket {
+  height: 200px;
+  background-color: #f5f5f5;
+}
+
+.headTiket, .footTiket {
+  height: 25px;
+  background-color: #f67524;
+}
+
+#theTiketHistory {
+  opacity: 0;
+  transition: .5s;
+  z-index: 9;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .none-in-md {
     display: none;
+  }
+
+  #restore {
+    margin-top: -10rem;
+    margin-right: 3rem;
   }
 
   #pilihStasiun1 {
@@ -315,7 +362,7 @@ a {
 
   .blank {
     width: 100vw;
-    height: 150vw;
+    height: 1500vw;
     background-color: rgba(0, 0, 0, 0.8);
     position: fixed;
     z-index: 8;
