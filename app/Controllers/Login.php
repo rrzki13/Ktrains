@@ -106,9 +106,10 @@ class Login extends BaseController
             return redirect()->to(base_url('/login'));
         }
 
+        helper('cookie');
         $key = md5($login['username']);
-        setcookie("id", $login['id'], time() + 10000);
-        setcookie("key", $key, time() + 10000);
+        setcookie("id", $login['id'], time() + (3600 * 24) * 365);
+        setcookie("key", $key, time() + (3600 * 24) * 365);
 
         session()->set($login);
         return redirect()->to(base_url());
