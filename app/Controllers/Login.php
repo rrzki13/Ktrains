@@ -1,4 +1,6 @@
-<?php namespace App\Controllers;
+<?php
+
+namespace App\Controllers;
 
 use App\Models\UserModel;
 
@@ -12,6 +14,21 @@ class Login extends BaseController
 
     public function index()
     {
+        // * check cookies
+        helper('cookie');
+        if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
+            $id = $_COOKIE['id'];
+            $key = $_COOKIE['key'];
+
+            $test = $this->UserModel->getUser($id);
+
+            if (md5($test['username']) == $key) {
+                session()->set($test);
+                return redirect()->to(base_URL('/'));
+            }
+        }
+
+
         if (session()->get("username")) {
             return redirect()->to(base_url());
         }
@@ -36,27 +53,28 @@ class Login extends BaseController
         return view('login/regist', $data);
     }
 
-    public function registProses() {
-        if(!$this->validate([
+    public function registProses()
+    {
+        if (!$this->validate([
             'username' => [
-				'rules' => 'required|is_unique[user.username]|alpha_dash',
-				'errors' => [
-					'alpha_dash' => 'username tidak boleh menggunakan spasi atau karakter unik',
-					'required' => 'username harus diisi',
-					'is_unique' => 'Username sudah terdaftar'
-				]
-			],
-			'email' => [
-				'rules' => 'required|is_unique[user.email]|valid_email',
-				'errors' => [
-					'required' => 'Email harus diisi',
-					'is_unique' => 'Email sudah terdaftar',
-					'valid_email' => 'Email tidak valid'
-				]
-			],
-        ])){
-			return redirect()->to(base_URL('/regist'))->withInput();
-        }else {
+                'rules' => 'required|is_unique[user.username]|alpha_dash',
+                'errors' => [
+                    'alpha_dash' => 'username tidak boleh menggunakan spasi atau karakter unik',
+                    'required' => 'username harus diisi',
+                    'is_unique' => 'Username sudah terdaftar'
+                ]
+            ],
+            'email' => [
+                'rules' => 'required|is_unique[user.email]|valid_email',
+                'errors' => [
+                    'required' => 'Email harus diisi',
+                    'is_unique' => 'Email sudah terdaftar',
+                    'valid_email' => 'Email tidak valid'
+                ]
+            ],
+        ])) {
+            return redirect()->to(base_URL('/regist'))->withInput();
+        } else {
             $nama = $this->request->getVar('namaDepan');
             $nama .= " ";
             $nama .= $this->request->getVar('namaBelakang');
@@ -77,7 +95,8 @@ class Login extends BaseController
         }
     }
 
-    public function loginProses() {
+    public function loginProses()
+    {
         $username = strtolower($this->request->getVar("username"));
         $password = md5($this->request->getVar("password"));
 
@@ -86,28 +105,38 @@ class Login extends BaseController
             session()->setFlashData("wrong", "Username or Password");
             return redirect()->to(base_url('/login'));
         }
-        
+
+        $key = md5($login['username']);
+        setcookie("id", $login['id'], time() + 10000);
+        setcookie("key", $key, time() + 10000);
+
         session()->set($login);
         return redirect()->to(base_url());
     }
 
-    public function logout() {
+    public function logout()
+    {
         if (!session()->get("username")) {
             return redirect()->to(base_url('/login'));
         }
 
-		$data = [
-			"id",
-			"username",
-			"password",
-			"nama_lengkap",
-			"email",
-			"level",
-			"created_at",
-			"updated_at"
-		];
-		session()->remove($data);
-		return redirect()->to(base_URL('/login'));
+        $data = [
+            "id",
+            "username",
+            "password",
+            "nama_lengkap",
+            "email",
+            "level",
+            "created_at",
+            "updated_at"
+        ];
+        session()->remove($data);
+
+        helper('cookie');
+		setcookie("id", "", time()-1);
+		setcookie("key", "", time()-1);
+
+        return redirect()->to(base_URL('/login'));
     }
 
     //--------------------------------------------------------------------

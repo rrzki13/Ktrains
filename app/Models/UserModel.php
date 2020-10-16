@@ -30,5 +30,9 @@ class UserModel extends Model
 			}
 		}
 	}
+
+	public function getUser($id) {
+		return $this->where(['id' => $id])->first();
+	}
     
 }
