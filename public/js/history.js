@@ -16,7 +16,16 @@ for (i = 0; i < deleteCard.length; i++) {
       confirmButtonText: `Ya, Hapus`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
+      let id = this.getAttribute("id");
       if (result.isConfirmed) {
+        var request = new XMLHttpRequest();
+        request.open("POST", "http://localhost/ktrains-rest/api/History", true);
+        request.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded; charset=UTF-8"
+        );
+        request.send("id=" + id);
+
         const card = this.parentElement.parentElement.parentElement
           .parentElement.parentElement;
 
@@ -69,9 +78,7 @@ for (let i = 0; i < lihatTiket.length; i++) {
 
     get("#theTiketHistory").innerHTML = loading;
 
-    setTimeout(() => {
-      getHistory(key, id, myId, pesanan);
-    }, 3000);
+    getHistory(key, id, myId, pesanan);
   });
 }
 

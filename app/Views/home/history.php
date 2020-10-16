@@ -52,9 +52,14 @@
     <?php endforeach ?>
       </div>
   <?php else : ?>
-    <div class="row my-3" id="noHistory">
+    <div class="row my-3 justify-content-center" id="noHistory">
+      <div class="col-3 text-center">
+        <img src="img/confused.png" class="w-100">
+      </div>
+    </div>
+    <div class="row my-3 justify-content-center" id="noHistory">
       <div class="col-12 text-center">
-        <h1 class="font-italic">You dont have history yet :(</h1>
+        <h4 class="font-italic">hmm, sepertinya kamu belum memiliki history pembayaran </h4>
       </div>
     </div>
   <?php endif ?>
