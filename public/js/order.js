@@ -55,19 +55,17 @@ function test(id, no_pesanan, id_user) {
       // Success!
       var data = JSON.parse(this.response);
 
-      get("#loadReceipt").style.opacity = 0;
-      get("#loadReceipt").style.position = "absolute";
-      get("#loadReceipt").style.minHeight = "0";
-      get("#receipt").style.opacity = 1;
-      get("#receipt").style.pointerEvents = "visibled";
-
       if (data.status) {
+        get("#loadReceipt").style.opacity = 0;
+        get("#loadReceipt").style.position = "absolute";
+        get("#loadReceipt").style.minHeight = "0";
+        get("#receipt").style.opacity = 1;
+        get("#receipt").style.pointerEvents = "visibled";
         const dataValue = data.data;
         let note =
           dataValue.confirmed == 0
             ? "Note: Harap Selesaikan Pembayaran"
             : "Note: Terimakasih telah mengorder tiket";
-        console.log(dataValue);
         let string =
           `
           <div class="col-12">
@@ -178,14 +176,31 @@ function test(id, no_pesanan, id_user) {
       }
     } else {
       // We reached our target server, but it returned an error
-      alert("unabled to get receipt");
+      get(".blank").style.opacity = "0";
+      get(".blank").style.pointerEvents = "none";
+      get("#cardShowTiket").style.opacity = "0";
+      get("#cardShowTiket").style.pointerEvents = "none";
+      get("#loadReceipt").style.opacity = 0;
+      get("#loadReceipt").style.position = "";
+      get("#loadReceipt").style.minHeight = "300px";
+      get("#receipt").style.opacity = 0;
+      get("#receipt").style.pointerEvents = "none";
+      Swal.fire(
+        "opps, unable to get receipt, please try again later",
+        "",
+        "info"
+      );
       return false;
     }
   };
 
   request.onerror = function () {
     // There was a connection error of some sort
-    alert("unabled to connect check your internet connection");
+    Swal.fire(
+      "opps, unabled to connect check your internet connection",
+      "",
+      "info"
+    );
     return false;
   };
 
