@@ -71,7 +71,7 @@
 
 <div class="container">
   <div class="row justify-content-end">
-    <div class="shadow p-3" id="restore" data-id="index.html">
+    <div class="shadow p-3" id="restore" data-id="<?= base_URL(); ?>/restore">
       <img src="img/restore.png" width="35" height="35" />
       <span class="ml-3 font-weight-bold">Restore Tiket</span>
     </div>
