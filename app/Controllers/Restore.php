@@ -16,7 +16,7 @@ class Restore extends BaseController
     {
         $data = [
             "title" => "Ktrains | Restore Tiket",
-            "active" => "order"
+            "active" => "history"
         ];
         return view('home/restore', $data);
     }

@@ -1,8 +1,8 @@
-<?php 
-    if(!session()->get('username')) {
-        header('location:'.base_URL().'/login');
-        die;
-    }
+<?php
+if (!session()->get('username')) {
+    header('location:' . base_URL() . '/login');
+    die;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +42,11 @@
     <?php if ($active == 'home') : ?>
         <script src="js/script.js"></script>
     <?php elseif ($active == 'history') : ?>
-        <script src="js/history.js"></script>
+        <?php if ($title == "Ktrains | Restore Tiket") : ?>
+            <script src="js/restore.js"></script>
+        <?php else : ?>
+            <script src="js/history.js"></script>
+        <?php endif ?>
     <?php elseif ($active == 'buy') : ?>
         <script src="js/jquery-3.1.1.min.js"></script>
         <script src="js/buy.js"></script>
