@@ -19,5 +19,9 @@ class TiketOrderModel extends Model
     public function getMyOrder($id) {
         return $this->where(['id_pemesan' => $id,'confirmed' => "1",'deleted' => "0"])->findAll();
     }
+
+    public function getRestoreTiket($id) {
+        return $this->where(['id_pemesan' => $id, 'deleted' => "1"])->orderBy("deleted_in", "DESC")->findAll();
+    } 
     
 }

@@ -10,6 +10,10 @@ class StasiunModel extends Model
 	
 	public function getAll() {
         return $this->findAll();
-    }
+	}
+	
+	public function getStationByCode($code) {
+		return $this->where(['code' => $code])->first();
+	}
     
 }
