@@ -7,6 +7,7 @@
   <div class="row">
     <div class="col-12">
       <h3>Restore Tiket</h3>
+      <span id="id_pemesan" class="d-none"><?= session()->get("id"); ?></span>
     </div>
   </div>
   <div class="row">
@@ -45,9 +46,7 @@
                     <div class="col-1 text-center">
                       :
                     </div>
-                    <div class="col-6 text-right">
-                      <?= $key['no_pesanan']; ?>
-                    </div>
+                    <div class="col-6 text-right"><?= $key['no_pesanan']; ?></div>
                   </div>
                   <div class="row">
                     <div class="col-5">

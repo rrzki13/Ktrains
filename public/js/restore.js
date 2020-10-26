@@ -8,8 +8,6 @@ restoreBtn.forEach((i) => {
   idCard.push(id);
 });
 
-console.log(idCard);
-
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
@@ -37,9 +35,12 @@ for (let i = 0; i < restoreBtn.length; i++) {
           idCard.splice(index, 1);
         }
 
-        console.log(idCard);
-
         checkArray();
+        let key = 131004;
+        let id_pemesan = get("#id_pemesan").textContent;
+        let no_pesanan = this.parentElement.parentElement.parentElement
+          .parentElement.parentElement.parentElement.children[0].children[1]
+          .children[0].children[0].children[2].textContent;
 
         let card = this.parentElement.parentElement.parentElement.parentElement
           .parentElement.parentElement;
@@ -51,6 +52,10 @@ for (let i = 0; i < restoreBtn.length; i++) {
           card.style.position = "absolute";
           cardParent.style.position = "absolute";
         }, 500);
+
+        let url = "http://localhost/ktrains-rest/api/Restore";
+        let data = `?key=${key}&no_pesanan=${no_pesanan}&id=${id}&id_pemesan=${id_pemesan}`;
+        postAjax(data, url);
       }
     });
   });
@@ -79,6 +84,11 @@ for (let i = 0; i < hapusBtn.length; i++) {
           idCard.splice(index, 1);
         }
 
+        let key = 131004;
+        let id_pemesan = get("#id_pemesan").textContent;
+        let no_pesanan = this.parentElement.parentElement.parentElement
+          .parentElement.parentElement.parentElement.children[0].children[1]
+          .children[0].children[0].children[2].textContent;
         checkArray();
 
         let card = this.parentElement.parentElement.parentElement.parentElement
@@ -91,6 +101,10 @@ for (let i = 0; i < hapusBtn.length; i++) {
           card.style.position = "absolute";
           cardParent.style.position = "absolute";
         }, 500);
+
+        let url = "http://localhost/ktrains-rest/api/Delete";
+        let data = `?key=${key}&no_pesanan=${no_pesanan}&id=${id}&id_pemesan=${id_pemesan}`;
+        postAjax(data, url);
       }
     });
   });
@@ -109,3 +123,13 @@ const checkArray = () => {
     }, 500);
   }
 };
+
+function postAjax(data, url, method = "POST") {
+  var request = new XMLHttpRequest();
+  request.open(method, url, true);
+  request.setRequestHeader(
+    "Content-Type",
+    "application/x-www-form-urlencoded; charset=UTF-8"
+  );
+  request.send(data);
+}
