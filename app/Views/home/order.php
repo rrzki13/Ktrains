@@ -78,7 +78,19 @@
                             <div class="row">
                                 <div class="col-6">status</div>
                                 <div class="col-6 text-right <?= ($key['confirmed'] == 1) ? 'text-success' : 'text-danger'; ?>">
-                                    <?= ($key['confirmed'] == 1) ? 'Lunas' : 'belum lunas'; ?>
+                                    <?php
+                                    $ket = "Lunas";
+                                    $today = date("Y-m-d");
+                                    if ($key['confirmed'] == 0) {
+                                        $ket = "Belum Lunas";
+                                        $thisDay = strtotime($today);
+                                        $tglBerangkat = strtotime($key['tanggal_berangkat']);
+                                        if ($thisDay > $tglBerangkat) {
+                                            $ket = "Gagal";
+                                        }
+                                    }
+                                    ?>
+                                    <?= $ket; ?>
                                 </div>
                             </div>
                         </div>
@@ -93,12 +105,12 @@
                 </div>
             <?php endforeach ?>
         <?php else : ?>
-            <div class="row my-3 justify-content-center" id="noHistory">
+            <div class="row my-3 justify-content-center">
                 <div class="col-3 text-center">
                     <img src="img/confused.png" class="w-100">
                 </div>
             </div>
-            <div class="row my-3 justify-content-center" id="noHistory">
+            <div class="row my-3 justify-content-center">
                 <div class="col-12 text-center">
                     <h4 class="font-italic">hmm, sepertinya kamu belum memiliki order</h4>
                 </div>
