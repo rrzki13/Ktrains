@@ -13,7 +13,7 @@ class TiketOrderModel extends Model
     }
 
     public function getByUserId($id) {
-        return $this->where(['id_pemesan' => $id])->findAll();
+        return $this->where(['id_pemesan' => $id])->orderBy("id", "DESC")->findAll();
     }
     
     public function getMyOrder($id) {
