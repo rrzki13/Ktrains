@@ -324,7 +324,7 @@ a {
   pointer-events: none;
 }
 
-#noRestore {
+#noRestore, #noHistory {
   opacity: 0;
   pointer-events: none;
   position: absolute;

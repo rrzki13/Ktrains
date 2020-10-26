@@ -1,4 +1,12 @@
 /* eslint-disable no-undef */
+const idCard = new Array();
+const deleteCard = getAll(".delete");
+
+deleteCard.forEach((i) => {
+  let id = i.getAttribute("id");
+  idCard.push(id);
+});
+
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
@@ -6,7 +14,6 @@ const Toast = Swal.mixin({
   timer: 5000,
 });
 
-const deleteCard = getAll(".delete");
 for (i = 0; i < deleteCard.length; i++) {
   deleteCard[i].addEventListener("click", function () {
     Swal.fire({
@@ -16,8 +23,14 @@ for (i = 0; i < deleteCard.length; i++) {
       confirmButtonText: `Ya, Hapus`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
-      let id = this.getAttribute("id");
       if (result.isConfirmed) {
+        let id = this.getAttribute("id");
+        const index = idCard.indexOf(id);
+        if (index > -1) {
+          idCard.splice(index, 1);
+        }
+        checkArray();
+
         var request = new XMLHttpRequest();
         request.open("POST", "http://localhost/ktrains-rest/api/History", true);
         request.setRequestHeader(
@@ -30,9 +43,9 @@ for (i = 0; i < deleteCard.length; i++) {
           .parentElement.parentElement;
 
         card.style.opacity = "0";
+        card.style.pointerEvents = "none";
         setTimeout(function () {
           card.style.position = "absolute";
-          card.style.pointerEvent = "none";
         }, 500);
 
         Toast.fire({
@@ -227,3 +240,17 @@ function getHistory(key, id, id_user, no_pesanan) {
 
   request.send();
 }
+
+const checkArray = () => {
+  if (idCard.length == 0) {
+    setTimeout(() => {
+      const noHistory = getAll("#noHistory");
+      noHistory.forEach((i) => {
+        get("#historyParent").style.display = "none";
+        i.style.opacity = "1";
+        i.style.position = "static";
+        i.style.pointerEvent = "visible";
+      });
+    }, 500);
+  }
+};

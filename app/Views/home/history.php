@@ -4,7 +4,7 @@
 <!-- main -->
 
 <div class="container my-5" style="min-height: 400px">
-<div class="myId" style="display: none;"><?= session()->get('id'); ?></div>
+  <div class="myId" style="display: none;"><?= session()->get('id'); ?></div>
   <div class="row">
     <div class="col-12">
       <h3>Histori Transaksi</h3>
@@ -15,9 +15,21 @@
       <hr class="bg-primary" style="height: 2px" />
     </div>
   </div>
+  <div class="row my-3 justify-content-center" id="noHistory">
+    <div class="col-md-3 text-center">
+      <img src="img/confused.png" class="w-100" />
+    </div>
+  </div>
+  <div class="row my-3 justify-content-center" id="noHistory">
+    <div class="col-12 text-center">
+      <h4 class="font-italic">
+        hmm, sepertinya kamu belum memiliki history transaksi
+      </h4>
+    </div>
+  </div>
   <?php if ($history) : ?>
-      <div class="row">
-    <?php foreach ($history as $key) : ?>
+    <div class="row" id="historyParent">
+      <?php foreach ($history as $key) : ?>
         <div class="col-md-4 mb-3 card-container">
           <div class="card shadow-sm">
             <div class="card-body">
@@ -49,15 +61,15 @@
             </div>
           </div>
         </div>
-    <?php endforeach ?>
-      </div>
+      <?php endforeach ?>
+    </div>
   <?php else : ?>
-    <div class="row my-3 justify-content-center" id="noHistory">
+    <div class="row my-3 justify-content-center">
       <div class="col-3 text-center">
         <img src="img/confused.png" class="w-100">
       </div>
     </div>
-    <div class="row my-3 justify-content-center" id="noHistory">
+    <div class="row my-3 justify-content-center">
       <div class="col-12 text-center">
         <h4 class="font-italic">hmm, sepertinya kamu belum memiliki history pembayaran </h4>
       </div>
