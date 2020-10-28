@@ -34,10 +34,10 @@
         <?= $this->include('layout/footerManager'); ?>
 
         <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-      </aside>
-      <!-- /.control-sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
 
     <!-- jQuery -->
@@ -54,14 +54,21 @@
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_URL(); ?>/js/demo.js"></script>
     <!-- My Script -->
-    <script>
-        $(function() {
-            $("#dataMobil").DataTable({
-                responsive: true,
-                autoWidth: false,
+    <?php if ($active == "add_staff") : ?>
+        <script src="/js/bs-custom-file-input.min.js"></script>
+        <script src="/js/classes.js"></script>
+        <script src="/js/function.js"></script>
+        <script src="/js/manager.js"></script>
+    <?php else : ?>
+        <script>
+            $(function() {
+                $("#dataMobil").DataTable({
+                    responsive: true,
+                    autoWidth: false,
+                });
             });
-        });
-    </script>
+        </script>
+    <?php endif ?>
 </body>
 
 </html>
