@@ -2,6 +2,14 @@
 if (!session()->get('username')) {
     header('location:' . base_URL() . '/login');
     die;
+}else {
+    if (session()->get('level') == "manager") {
+        header('location:' . base_URL() . "/manager");
+        die;
+    } elseif (session()->get('level') == "staff") {
+        header('location:' . base_URL() . '/staff');
+        die;
+    }
 }
 ?>
 <!DOCTYPE html>

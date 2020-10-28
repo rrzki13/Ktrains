@@ -110,7 +110,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="submitAddStaff">
                                     Submit
                                 </button>
                             </div>

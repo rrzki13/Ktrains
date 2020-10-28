@@ -1,3 +1,15 @@
+<?php
+if (session()->get("id")) {
+    if (session()->get('level') == "user") {
+        header('location:' . base_URL());
+        die;
+    } elseif (session()->get('level') == "staff") {
+        header('location:' . base_URL() . '/staff');
+        die;
+    }
+} else {
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -53,7 +65,28 @@
     <script src="<?= base_URL(); ?>/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_URL(); ?>/js/demo.js"></script>
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- My Script -->
+    <script>
+        $(function() {
+            $("#logoutBtnManager").on("click", function(e) {
+                e.preventDefault();
+                let href = $(this).attr("href");
+                Swal.fire({
+                    title: "Are you sure want to logout?",
+                    showDenyButton: false,
+                    showCancelButton: true,
+                    confirmButtonText: `Logout`,
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        document.location.href = href;
+                    }
+                });
+            })
+        });
+    </script>
     <?php if ($active == "add_staff") : ?>
         <script src="/js/bs-custom-file-input.min.js"></script>
         <script src="/js/classes.js"></script>

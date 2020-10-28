@@ -41,6 +41,21 @@ $(function () {
     justPassword(this);
   });
 
+  $("#submitAddStaff").click(function (e) {
+    e.preventDefault();
+    if (
+      justUsername(get("#usernameStaff")) &&
+      ValidateEmail(get("#emailStaff")) &&
+      justText(get("#firstNameStaff")) &&
+      justText(get("#lastNameStaff")) &&
+      justPassword(get("#staffPass"))
+    ) {
+      alert("ok");
+    } else {
+      alert(false);
+    }
+  });
+
   $("#staffProfile").change(function () {
     const input = document.getElementById("staffProfile");
     const imgPreview = document.querySelector("#imgPreview");

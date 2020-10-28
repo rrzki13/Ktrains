@@ -105,14 +105,18 @@ class Login extends BaseController
             session()->setFlashData("wrong", "Username or Password");
             return redirect()->to(base_url('/login'));
         }
-
         helper('cookie');
         $key = md5($login['username']);
         setcookie("id", $login['id'], time() + (3600 * 24) * 365);
         setcookie("key", $key, time() + (3600 * 24) * 365);
 
         session()->set($login);
-        return redirect()->to(base_url());
+
+        if ($login['level'] == "manager") {
+            return redirect()->to(base_url("/manager"));
+        }else{
+            return redirect()->to(base_url());
+        }
     }
 
     public function logout()
