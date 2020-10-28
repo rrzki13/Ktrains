@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/Regist', 'Login::regist');
 $routes->get('/Logout', 'Login::logout');
+$routes->get('/manager/', 'manager\Manager::index');
 $routes->post('/registProses', 'Login::registProses');
 $routes->post('/loginProses', 'Login::loginProses');
 $routes->post('/BuyMyTicket', 'Buy::index');
