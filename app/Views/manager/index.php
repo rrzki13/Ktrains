@@ -139,27 +139,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1989809189480131</td>
-                                        <td>Naruto</td>
-                                        <td>100.000</td>
-                                        <td class="text-success">Lunas</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>1989809189480093</td>
-                                        <td>Boruto</td>
-                                        <td>150.000</td>
-                                        <td class="text-danger">Gagal</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>2918420948190919</td>
-                                        <td>Saruto</td>
-                                        <td>200.000</td>
-                                        <td class="text-danger">Belum Lunas</td>
-                                    </tr>
+                                    <?php $i = 1; ?>
+                                    <?php foreach ($order as $key) : ?>
+                                        <tr>
+                                            <td><?= $i; ?></td>
+                                            <td><?= $key['no_pesanan']; ?></td>
+                                            <td><?= $key['nama_pemesan']; ?></td>
+                                            <td id="totalInManagerHome"><?= $key['total']; ?></td>
+                                            <?php
+                                            $today = date("Y-m-d");
+                                            if ($key['confirmed'] == "1") {
+                                                $status = "Lunas";
+                                                $statusColor = "text-success";
+                                            } else {
+                                                $status = "Belum Lunas";
+                                                $statusColor = "text-danger";
+                                                if (strtotime($today) > strtotime($key['tanggal_berangkat'])) {
+                                                    $status = "Gagal";
+                                                    $statusColor = "text-danger";
+                                                }
+                                            }
+                                            ?>
+                                            <td class="<?= $statusColor; ?>"><?= $status; ?></td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>

@@ -2,25 +2,24 @@
 
 namespace App\Controllers\manager;
 
-use App\Models\KeretaModel;
-use App\Models\StasiunModel;
+use App\Models\TiketOrderModel;
 use App\Controllers\BaseController;
 
 class Manager extends BaseController
 {
-	protected $KeretaModel;
-	protected $StasiunModel;
+	protected $TiketOrderModel;
 	public function __construct()
 	{
-		$this->KeretaModel = new KeretaModel();
-		$this->StasiunModel = new StasiunModel();
+		$this->TiketOrderModel = new TiketOrderModel();
 	}
 
 	public function index()
 	{
+		$tiketOrder = $this->TiketOrderModel->getAll();
 		$data = [
 			"title" => "Ktrains | Manager Home",
-			"active" => "home"
+			"active" => "home",
+			"order" => $tiketOrder
 		];
 		return view('manager/index', $data);
 	}

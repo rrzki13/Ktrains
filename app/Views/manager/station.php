@@ -44,12 +44,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>PSE</td>
-                                        <td>Pasar Senen</td>
-                                        <td>Jakarta</td>
-                                    </tr>
+                                    <?php $i = 1; ?>
+                                    <?php foreach ($station as $key) : ?>
+                                        <tr>
+                                            <td><?= $i; ?></td>
+                                            <td><?= $key['code']; ?></td>
+                                            <td><?= $key['station_name']; ?></td>
+                                            <td><?= $key['location']; ?></td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>

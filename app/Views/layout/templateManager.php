@@ -8,6 +8,8 @@ if (session()->get("id")) {
         die;
     }
 } else {
+    header('location:' . base_URL() . '/login');
+    die;
 }
 ?>
 <!DOCTYPE html>
@@ -87,6 +89,35 @@ if (session()->get("id")) {
             })
         });
     </script>
+    <?php if ($active == "home") : ?>
+        <script src="/js/classes.js"></script>
+        <script src="/js/function.js"></script>
+        <script>
+            $(function() {
+                let moneyFormat = new FormatMoney();
+
+                let formatThis = getAll("#totalInManagerHome");
+                for (let i = 0; i < formatThis.length; i++) {
+                    let rupiah = moneyFormat.toRupiah(formatThis[i].textContent);
+                    formatThis[i].innerHTML = rupiah;
+                }
+            });
+        </script>
+    <?php elseif($active == "train_list") : ?>
+        <script src="/js/classes.js"></script>
+        <script src="/js/function.js"></script>
+        <script>
+            $(function() {
+                let moneyFormat = new FormatMoney();
+
+                let formatThis = getAll("#trainFare");
+                for (let i = 0; i < formatThis.length; i++) {
+                    let rupiah = moneyFormat.toRupiah(formatThis[i].textContent);
+                    formatThis[i].innerHTML = rupiah;
+                }
+            });
+        </script>
+    <?php endif ?>
     <?php if ($active == "add_staff") : ?>
         <script src="/js/bs-custom-file-input.min.js"></script>
         <script src="/js/classes.js"></script>

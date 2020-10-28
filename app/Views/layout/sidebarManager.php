@@ -14,7 +14,7 @@
                 <img src="<?= base_URL(); ?>/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"/>
             </div>
             <div class="info">
-                <a href="#" target="blank" class="d-block">Rizki Ramadhan</a>
+                <a href="#" target="blank" class="d-block"><?= session()->get("username"); ?></a>
             </div>
         </div>
 

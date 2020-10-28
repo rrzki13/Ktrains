@@ -44,12 +44,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $i=1; ?>
+                                    <?php foreach ($kereta as $key) : ?>
                                     <tr>
-                                        <td>1</td>
-                                        <td>Bima</td>
-                                        <td>100.000</td>
-                                        <td>Ekonomi</td>
+                                        <td><?= $i; ?></td>
+                                        <td><?= $key['train_name']; ?></td>
+                                        <td id="trainFare"><?= $key['train_fare']; ?></td>
+                                        <td><?= $key['train_class']; ?></td>
                                     </tr>
+                                    <?php $i++; ?>
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>
