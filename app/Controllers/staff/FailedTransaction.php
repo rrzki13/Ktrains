@@ -15,9 +15,22 @@ class FailedTransaction extends BaseController
 
 	public function index()
 	{
+		$tiket = $this->TiketOrderModel->getAllAndOrder();
+		$today = date("Y-m-d");
+		$fail = [];
+		if (count($tiket) != 0) {
+			foreach($tiket as $key) {
+				if ($key['confirmed'] == "0") {
+					if (strtotime($today) > strtotime($key['tanggal_berangkat'])) {
+						$fail[] = $key;
+					}
+				}
+			}
+		}
 		$data = [
 			"title" => "Ktrains | Staff Failed Transaction",
-			"active" => "failed"
+			"active" => "failed",
+			"fail" => $fail
 		];
 		return view('staff/fail', $data);
 	}

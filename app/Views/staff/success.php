@@ -43,12 +43,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>19202921809128012</td>
-                                        <td>Rizki Ramadhan</td>
-                                        <td>Rp. 100.000</td>
-                                    </tr>
+                                    <?php if ($success) : ?>
+                                        <?php $i=1; ?>
+                                        <?php foreach ($success as $key) : ?>
+                                            <tr>
+                                                <td><?= $i; ?></td>
+                                                <td><?= $key['no_pesanan']; ?></td>
+                                                <td><?= $key['nama_pemesan']; ?></td>
+                                                <td id="changeTotal"><?= $key['total']; ?></td>
+                                            </tr>
+                                            <?php $i++; ?>
+                                        <?php endforeach ?>
+                                    <?php endif ?>
+
                                 </tbody>
                             </table>
                         </div>

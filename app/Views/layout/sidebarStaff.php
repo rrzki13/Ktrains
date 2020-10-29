@@ -11,10 +11,10 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" />
+                <img src="/profile/<?= session()->get("gambar"); ?>" class="img-circle elevation-2" alt="User Image" />
             </div>
             <div class="info">
-                <a href="https://github.com/rrzki13" target="blank" class="d-block">Rizki Ramadhan</a>
+                <a href="#" target="blank" class="d-block"><?= session()->get("username"); ?></a>
             </div>
         </div>
 

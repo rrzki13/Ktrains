@@ -30,7 +30,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3><?= count($order); ?></h3>
 
                             <p>Order Ticket</p>
                         </div>
@@ -45,14 +45,14 @@
                     <!-- small box -->
                     <div class="small-box bg-pink">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3><?= count($success); ?></h3>
 
                             <p>Successful Transaction</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-check-circle "></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/staff/successTransaction" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -60,14 +60,14 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53</h3>
+                            <h3><?= count($waiting); ?></h3>
 
                             <p>Waiting Transaction</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-cut"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/staff/waitingTransaction" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -75,14 +75,14 @@
                     <!-- small box -->
                     <div class="small-box bg-teal">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3><?= count($fail); ?></h3>
 
                             <p>Failed Transaction</p>
                         </div>
                         <div class="icon">
                             <i class="far fa-times-circle"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/staff/failedTransaction" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -108,27 +108,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1989809189480131</td>
-                                        <td>Naruto</td>
-                                        <td>100.000</td>
-                                        <td class="text-success">Lunas</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>1989809189480093</td>
-                                        <td>Boruto</td>
-                                        <td>150.000</td>
-                                        <td class="text-danger">Gagal</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>2918420948190919</td>
-                                        <td>Saruto</td>
-                                        <td>200.000</td>
-                                        <td class="text-danger">Belum Lunas</td>
-                                    </tr>
+                                    <?php if ($order) : ?>
+                                        <?php $i=1; ?>
+                                        <?php foreach ($order as $key) : ?>
+                                            <tr>
+                                                <td><?= $i; ?></td>
+                                                <td><?= $key['no_pesanan']; ?></td>
+                                                <td><?= $key['nama_pemesan']; ?></td>
+                                                <td id="changeTotal"><?= $key['total']; ?></td>
+                                                <?php 
+                                                    if ($key['confirmed'] == "1") {
+                                                        $status = "Lunas";
+                                                        $color = "text-success";
+                                                    }else {
+                                                        $status = "Belum Lunas";
+                                                        $color = "text-danger";
+                                                        $today = date("Y-m-d");
+                                                        if (strtotime($today) > strtotime($key['tanggal_berangkat'])) {
+                                                            $status = "Gagal";
+                                                        }
+                                                    }
+                                                ?>
+                                                <td class="<?= $color; ?>"><?= $status; ?></td>
+                                            </tr>
+                                            <?php $i++; ?>
+                                        <?php endforeach ?>
+                                    <?php endif ?>
                                 </tbody>
                             </table>
                         </div>

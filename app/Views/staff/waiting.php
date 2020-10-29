@@ -45,17 +45,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>19202921809128012</td>
-                                        <td>2</td>
-                                        <td>Rizki Ramadhan</td>
-                                        <td>Rp. 100.000</td>
-                                        <td>
-                                            <button class="btn btn-success">Confirm</button>
-                                            <button class="btn btn-danger">Cancel Order</button>
-                                        </td>
-                                    </tr>
+                                    <?php if ($wait) : ?>
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($wait as $key) : ?>
+                                            <tr>
+                                                <td><?= $i; ?></td>
+                                                <td><?= $key['no_pesanan']; ?></td>
+                                                <td><?= $key['jumlah_tiket']; ?></td>
+                                                <td><?= $key['nama_pemesan']; ?></td>
+                                                <td id="changeTotal"><?= $key['total']; ?></td>
+                                                <td>
+                                                    <form role="form" class="d-inline">
+                                                        <?= csrf_field(); ?>
+                                                        <input type="hidden" name="id" value="<?= $key['id']; ?>">
+                                                        <button class="btn btn-success"  type="submit">Confirm</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <?php $i++; ?>
+                                        <?php endforeach ?>
+                                    <?php endif ?>
                                 </tbody>
                             </table>
                         </div>

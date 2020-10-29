@@ -70,8 +70,20 @@ if (session()->get("id")) {
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- My Script -->
+    <script src="/js/classes.js"></script>
+    <script src="/js/function.js"></script>
     <script>
         $(function() {
+            let formatter = new FormatMoney();
+            let totalData = getAll("#changeTotal");
+            if (totalData.length > 0) {
+                for(let i=0;i < totalData.length;i++) {
+                    let total = totalData[i].textContent;
+                    let rupiah = formatter.toRupiah(total);
+                    totalData[i].innerHTML = rupiah;
+                }
+            }
+
             $("#dataMobil").DataTable({
                 responsive: true,
                 autoWidth: false,
