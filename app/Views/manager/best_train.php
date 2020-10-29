@@ -44,12 +44,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Bima</td>
-                                        <td>Ekonomi</td>
-                                        <td>10</td>
-                                    </tr>
+                                    <?php $i=0; ?>
+                                    <?php foreach ($best_train as $key) : ?>
+                                        <tr>
+                                            <td><?= $i; ?></td>
+                                            <td><?= $key['train_name']; ?></td>
+                                            <td><?= $key['train_class']; ?></td>
+                                            <td><?= $key['train_order']; ?></td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>

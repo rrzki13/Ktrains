@@ -12,6 +12,10 @@ class TiketOrderModel extends Model
         return $this->findAll();
     }
 
+    public function getConfirmed() {
+        return $this->where(['confirmed' => "1"])->findAll();
+    }
+
     public function getByUserId($id) {
         return $this->where(['id_pemesan' => $id])->orderBy("id", "DESC")->findAll();
     }

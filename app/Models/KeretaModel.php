@@ -10,6 +10,10 @@ class KeretaModel extends Model
 	
 	public function getAll() {
         return $this->findAll();
-    }
+	}
+	
+	public function getTrainById($id) {
+		return $this->where(['id' => $id])->first();
+	}
     
 }

@@ -2,25 +2,24 @@
 
 namespace App\Controllers\manager;
 
-use App\Models\KeretaModel;
-use App\Models\StasiunModel;
+use App\Models\UserModel;
 use App\Controllers\BaseController;
 
 class StaffList extends BaseController
 {
-	protected $KeretaModel;
-	protected $StasiunModel;
+	protected $UserModel;
 	public function __construct()
 	{
-		$this->KeretaModel = new KeretaModel();
-		$this->StasiunModel = new StasiunModel();
+		$this->UserModel = new UserModel();
 	}
 
 	public function index()
 	{
+		$staff = $this->UserModel->getStaff();
 		$data = [
 			"title" => "Ktrains | Manager Staff List",
-			"active" => "staff_list"
+			"active" => "staff_list",
+			"staff" => $staff
 		];
 		return view('manager/staff_list', $data);
 	}

@@ -2,25 +2,43 @@
 
 namespace App\Controllers\manager;
 
+use App\Models\TiketOrderModel;
 use App\Models\KeretaModel;
-use App\Models\StasiunModel;
 use App\Controllers\BaseController;
 
 class BestTrain extends BaseController
 {
+	protected $TiketOrderModel;
 	protected $KeretaModel;
-	protected $StasiunModel;
 	public function __construct()
 	{
+		$this->TiketOrderModel = new TiketOrderModel();
 		$this->KeretaModel = new KeretaModel();
-		$this->StasiunModel = new StasiunModel();
 	}
 
 	public function index()
 	{
+		$tiket = $this->TiketOrderModel->getConfirmed();
+		$bestTrain = [];
+		foreach ($tiket as $key) {
+			$jmlOrder = 0;
+			$arrayIdTrain = [];
+			if (!in_array($key['id_kereta'], $arrayIdTrain)) {
+				$jmlOrder++;
+			}else {
+				$arrayIdTrain[] = $key['id_kereta'];
+			}
+			$getTrain = $this->KeretaModel->getTrainById($key['id_kereta']);
+			$bestTrain[] = [
+				"train_name" => $key['nama_kereta'],
+				"train_class" => $getTrain['train_class'],
+				"train_order" => $jmlOrder
+			];
+		}
 		$data = [
 			"title" => "Ktrains | Manager Best Train List",
-			"active" => "train_best"
+			"active" => "train_best",
+			"best_train" => $bestTrain
 		];
 		return view('manager/best_train', $data);
 	}

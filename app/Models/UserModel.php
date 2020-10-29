@@ -31,6 +31,14 @@ class UserModel extends Model
 		}
 	}
 
+	public function getAllUser() {
+		return $this->where(['level' => "user"])->findAll();
+	}
+
+	public function getStaff() {
+		return $this->where(['level' => "staff"])->findAll();
+	}
+
 	public function getUser($id) {
 		return $this->where(['id' => $id])->first();
 	}

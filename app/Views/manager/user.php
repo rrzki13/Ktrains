@@ -44,12 +44,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Kkyy13</td>
-                                        <td>Rizki Ramadhan</td>
-                                        <td>farazrizki13@gmail.com</td>
-                                    </tr>
+                                    <?php if ($user) : ?>
+                                        <?php $i=1; ?>
+                                        <?php foreach ($user as $key) : ?>
+                                            <tr>
+                                                <td><?= $i; ?></td>
+                                                <td><?= $key['username']; ?></td>
+                                                <td><?= $key['nama_lengkap']; ?></td>
+                                                <td><?= $key['email']; ?></td>
+                                            </tr>
+                                        <?php $i++; ?>
+                                        <?php endforeach ?>
+                                    <?php endif ?>
                                 </tbody>
                             </table>
                         </div>
