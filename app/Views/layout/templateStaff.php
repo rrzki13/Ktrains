@@ -72,6 +72,11 @@ if (session()->get("id")) {
     <!-- My Script -->
     <script>
         $(function() {
+            $("#dataMobil").DataTable({
+                responsive: true,
+                autoWidth: false,
+            });
+
             $("#logoutBtnManager").on("click", function(e) {
                 e.preventDefault();
                 let href = $(this).attr("href");
