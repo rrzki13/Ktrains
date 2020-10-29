@@ -54,21 +54,26 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form role="form">
+                        <form role="form" method="POST" enctype="multipart/form-data" action="/manager/addStaffProgress">
+                            <?= csrf_field(); ?>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="usernameStaff">Username</label>
-                                            <input type="text" class="form-control" id="usernameStaff" placeholder="Enter username" />
-                                            <small class="text-danger" id="usernameStaffUsernameValidate"></small>
+                                            <input type="text" class="form-control" id="usernameStaff" placeholder="Enter username" name="usernameStaff" autocomplete="off" value="<?= old("usernameStaff"); ?>" />
+                                            <small class="text-danger" id="usernameStaffUsernameValidate">
+                                                <?= $validation->getError('usernameStaff'); ?>
+                                            </small>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="emailStaff">Email address</label>
-                                            <input type="email" class="form-control" id="emailStaff" placeholder="Enter email" />
-                                            <small class="text-danger" id="emailStaffEmailValidate"></small>
+                                            <input type="email" class="form-control" id="emailStaff" placeholder="Enter email" name="emailStaff" autocomplete="off" value="<?= old("emailStaff"); ?>" />
+                                            <small class="text-danger" id="emailStaffEmailValidate">
+                                                <?= $validation->getError('emailStaff'); ?>
+                                            </small>
                                         </div>
                                     </div>
                                 </div>
@@ -77,34 +82,37 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="firstNameStaff">First Name</label>
-                                            <input type="text" class="form-control" id="firstNameStaff" placeholder="Enter username" />
+                                            <input type="text" class="form-control" id="firstNameStaff" placeholder="Enter first name" name="firstNameStaff" value="<?= old("firstNameStaff"); ?>" />
                                             <small class="text-danger" id="firstNameStaffTextValidate"></small>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="lastNameStaff">Last Name</label>
-                                            <input type="text" class="form-control" id="lastNameStaff" placeholder="Enter email" />
+                                            <input type="text" class="form-control" id="lastNameStaff" placeholder="Enter last name" name="lastNameStaff" value="<?= old("lastNameStaff"); ?>" />
                                             <small class="text-danger" id="lastNameStaffTextValidate"></small>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="staffPass">Password</label>
-                                    <input type="password" class="form-control" id="staffPass" placeholder="Password" />
+                                    <input type="password" class="form-control" id="staffPass" placeholder="Password" name="staffPass" />
                                     <small class="text-danger" id="staffPassPasswordValidate"></small>
                                 </div>
                                 <div class="form-group">
                                     <label for="staffProfile">Input Profile Picture</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="staffProfile" accept="Image/jpg,Image/jpeg,Image/png" />
+                                            <input type="file" class="custom-file-input" id="staffProfile" accept="Image/jpg,Image/jpeg,Image/png" name="staffProfile" />
                                             <label class="custom-file-label" for="staffProfile">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="">Upload</span>
                                         </div>
                                     </div>
+                                    <small class="text-danger">
+                                        <?= $validation->getError('staffProfile'); ?>
+                                    </small>
                                 </div>
                             </div>
                             <!-- /.card-body -->

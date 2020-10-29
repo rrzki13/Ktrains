@@ -24,7 +24,13 @@ class Login extends BaseController
 
             if (md5($test['username']) == $key) {
                 session()->set($test);
-                return redirect()->to(base_URL('/'));
+                if ($test['level'] == "manager") {
+                    return redirect()->to(base_URL('/manager'));
+                }else if ($test['level'] == "staff") {
+                    return redirect()->to(base_URL('/staff'));
+                }else {
+                    return redirect()->to(base_URL('/'));
+                }
             }
         }
 

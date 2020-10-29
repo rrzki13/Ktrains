@@ -1,4 +1,41 @@
 /* eslint-disable no-undef */
+const invalidUsername = [];
+const invalidEmail = [];
+getSuccessUsername();
+
+function getSuccessUsername() {
+  var request = new XMLHttpRequest();
+  request.open("GET", "http://localhost/ktrains-rest/api/User", true);
+
+  request.onload = function () {
+    if (this.status >= 200 && this.status < 400) {
+      // Success!
+      var data = JSON.parse(this.response);
+      if (data.status) {
+        const dataValue = data.data;
+        for (i = 0; i < dataValue.length; i++) {
+          const username = dataValue[i].username;
+          invalidUsername.push(username);
+        }
+        for (i = 0; i < dataValue.length; i++) {
+          const email = dataValue[i].email;
+          invalidEmail.push(email);
+        }
+      }
+    } else {
+      // We reached our target server, but it returned an error
+      return false;
+    }
+  };
+
+  request.onerror = function () {
+    // There was a connection error of some sort
+    return false;
+  };
+
+  request.send();
+}
+
 $(function () {
   $("#dataMobil").DataTable({
     responsive: true,
@@ -6,6 +43,12 @@ $(function () {
   });
 
   bsCustomFileInput.init();
+
+  if (get("#usernameStaff").value != "") {
+    $("#staffUsername").html(get("#usernameStaff").value);
+  } else if (get("#emailStaff").value != "") {
+    $("#staffEmail").html(get("#emailStaff").value);
+  }
 
   $("#usernameStaff").keyup(function () {
     let val = $("#usernameStaff").val();
@@ -15,7 +58,12 @@ $(function () {
       $("#staffUsername").html("Staff");
     }
 
-    justUsername(this);
+    if (justUsername(this)) {
+      if (invalidUsername.indexOf(this.value) != -1) {
+        get("#usernameStaffUsernameValidate").innerHTML =
+          "Username tidak tersedia";
+      }
+    }
   });
 
   $("#emailStaff").keyup(function () {
@@ -26,7 +74,11 @@ $(function () {
       $("#staffEmail").html("staff@gmail.com");
     }
 
-    ValidateEmail(this);
+    if (ValidateEmail(this)) {
+      if (invalidEmail.indexOf(this.value) != -1) {
+        get("#emailStaffEmailValidate").innerHTML = "Email tidak tersedia";
+      }
+    }
   });
 
   $("#firstNameStaff").keyup(function () {
@@ -50,9 +102,15 @@ $(function () {
       justText(get("#lastNameStaff")) &&
       justPassword(get("#staffPass"))
     ) {
-      alert("ok");
-    } else {
-      alert(false);
+      if (invalidUsername.indexOf(get("#usernameStaff").value) != -1) {
+        get("#usernameStaffUsernameValidate").innerHTML =
+          "Username tidak tersedia";
+      } else if (invalidEmail.indexOf(get("#emailStaff").value) != -1) {
+        get("#emailStaffEmailValidate").innerHTML = "Email tidak tersedia";
+      } else {
+        // unbind button
+        $(this).unbind("click").click();
+      }
     }
   });
 

@@ -38,6 +38,7 @@ $routes->get('/manager/', 'manager\Manager::index');
 $routes->post('/registProses', 'Login::registProses');
 $routes->post('/loginProses', 'Login::loginProses');
 $routes->post('/BuyMyTicket', 'Buy::index');
+$routes->post('/manager/addStaffProgress', 'manager\AddStaff::addStaffProgress');
 
 /**
  * --------------------------------------------------------------------

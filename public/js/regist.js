@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const invalidUsername = []
 const invalidEmail = []
 getSuccessUsername()
