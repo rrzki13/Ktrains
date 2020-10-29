@@ -35,6 +35,7 @@ $routes->get('/', 'Home::index');
 $routes->get('/Regist', 'Login::regist');
 $routes->get('/Logout', 'Login::logout');
 $routes->get('/manager/', 'manager\Manager::index');
+$routes->get('/staff/', 'staff\Staff::index');
 $routes->post('/registProses', 'Login::registProses');
 $routes->post('/loginProses', 'Login::loginProses');
 $routes->post('/BuyMyTicket', 'Buy::index');

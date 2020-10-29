@@ -120,6 +120,8 @@ class Login extends BaseController
 
         if ($login['level'] == "manager") {
             return redirect()->to(base_url("/manager"));
+        }else if ($login['level'] == "staff") {
+            return redirect()->to(base_url("/staff"));
         }else{
             return redirect()->to(base_url());
         }
