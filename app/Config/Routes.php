@@ -40,6 +40,7 @@ $routes->post('/registProses', 'Login::registProses');
 $routes->post('/loginProses', 'Login::loginProses');
 $routes->post('/BuyMyTicket', 'Buy::index');
 $routes->post('/manager/addStaffProgress', 'manager\AddStaff::addStaffProgress');
+$routes->post('/staff/confirm', 'staff\WaitingTransaction::confirm');
 
 /**
  * --------------------------------------------------------------------

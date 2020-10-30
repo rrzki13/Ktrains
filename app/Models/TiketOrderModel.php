@@ -6,10 +6,15 @@ use CodeIgniter\Model;
 class TiketOrderModel extends Model
 {
 	protected $table = 'tiket_order';
-	protected $useTimestamps = true;
+    protected $useTimestamps = true;
+    protected $allowedFields =['confirmed'];
 	
 	public function getAll() {
         return $this->findAll();
+    }
+
+    public function getById($id) {
+        return $this->where(['id' => $id])->first();
     }
 
     public function getAllAndOrder() {

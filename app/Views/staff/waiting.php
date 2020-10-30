@@ -55,10 +55,11 @@
                                                 <td><?= $key['nama_pemesan']; ?></td>
                                                 <td id="changeTotal"><?= $key['total']; ?></td>
                                                 <td>
-                                                    <form role="form" class="d-inline">
+                                                    <form role="form" class="d-inline" method="POST" action="/staff/confirm">
                                                         <?= csrf_field(); ?>
                                                         <input type="hidden" name="id" value="<?= $key['id']; ?>">
-                                                        <button class="btn btn-success"  type="submit">Confirm</button>
+                                                        <input type="hidden" name="confirm_by" value="<?= session()->get("id"); ?>">
+                                                        <button class="btn btn-success"  type="submit" id="btnConfirm">Confirm</button>
                                                     </form>
                                                 </td>
                                             </tr>

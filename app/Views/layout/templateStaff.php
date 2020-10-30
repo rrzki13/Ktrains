@@ -77,7 +77,7 @@ if (session()->get("id")) {
             let formatter = new FormatMoney();
             let totalData = getAll("#changeTotal");
             if (totalData.length > 0) {
-                for(let i=0;i < totalData.length;i++) {
+                for (let i = 0; i < totalData.length; i++) {
                     let total = totalData[i].textContent;
                     let rupiah = formatter.toRupiah(total);
                     totalData[i].innerHTML = rupiah;
@@ -106,6 +106,46 @@ if (session()->get("id")) {
             })
         });
     </script>
+    <?php if ($active == "waiting") : ?>
+        <script>
+            $(function() {
+                $("#btnConfirm").on("click", function(e) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You will confirm this order!",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, confirm it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $(this).unbind("click").click();
+                        }
+                    })
+                })
+            });
+        </script>
+    <?php elseif ($active == "success") : ?>
+        <?php if (session()->getFlashData('confirmSuccess')) : ?>
+            <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000
+                });
+
+                setTimeout(function() {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Ticket order success'
+                    })
+                }, 200);
+            </script>
+        <?php endif ?>
+    <?php endif ?>
 </body>
 
 </html>
