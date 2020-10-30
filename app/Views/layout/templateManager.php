@@ -123,6 +123,11 @@ if (session()->get("id")) {
         <script src="/js/classes.js"></script>
         <script src="/js/function.js"></script>
         <script src="/js/manager.js"></script>
+    <?php elseif($active == "profile") : ?>
+        <script src="/js/bs-custom-file-input.min.js"></script>
+        <script src="/js/classes.js"></script>
+        <script src="/js/function.js"></script>
+        <script src="/js/profile.js"></script>
     <?php else : ?>
         <script>
             $(function() {

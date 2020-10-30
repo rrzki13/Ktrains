@@ -14,7 +14,7 @@
                 <img src="<?= base_URL(); ?>/profile/<?= session()->get("gambar"); ?>" class="img-circle elevation-2" alt="User Image"/>
             </div>
             <div class="info">
-                <a href="#" target="blank" class="d-block"><?= session()->get("username"); ?></a>
+                <a href="/manager/MyProfile" class="d-block"><?= session()->get("username"); ?></a>
             </div>
         </div>
 
@@ -24,7 +24,7 @@
                 <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="/manager" class="nav-link <?= ($active == "home") ? "active" : ""; ?>">
+                    <a href="/manager" class="nav-link <?= ($active == "home") ? "active" : ""; ?> <?= ($active == "profile") ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Home

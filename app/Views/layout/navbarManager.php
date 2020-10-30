@@ -8,8 +8,8 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/manager" class="nav-link <?= ($active == "home") ? "active" : ""; ?>">Home</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="" class="nav-link">Contact</a>
+        <li class="nav-item d-none d-sm-inline-block <?= ($active == "profile") ? 'active' : ''; ?>">
+            <a href="/manager/MyProfile" class="nav-link">Profile</a>
         </li>
     </ul>
 
