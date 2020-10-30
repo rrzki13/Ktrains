@@ -89,7 +89,7 @@ if (session()->get("id")) {
                 autoWidth: false,
             });
 
-            $("#logoutBtnManager").on("click", function(e) {
+            $("#logoutBtnStaff").on("click", function(e) {
                 e.preventDefault();
                 let href = $(this).attr("href");
                 Swal.fire({

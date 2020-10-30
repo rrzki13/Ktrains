@@ -2,7 +2,7 @@
 if (!session()->get('username')) {
     header('location:' . base_URL() . '/login');
     die;
-}else {
+} else {
     if (session()->get('level') == "manager") {
         header('location:' . base_URL() . "/manager");
         die;
@@ -47,6 +47,22 @@ if (!session()->get('username')) {
     <script src="js/function.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/JsBarcode.all.min.js"></script>
+    <script>
+        get(".btn-logout").addEventListener("click", function() {
+            const href = this.getAttribute("id");
+            Swal.fire({
+                title: "Are you sure want to logout?",
+                showDenyButton: false,
+                showCancelButton: true,
+                confirmButtonText: `Logout`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    document.location.href = href;
+                }
+            });
+        });
+    </script>
     <?php if ($active == 'home') : ?>
         <script src="js/script.js"></script>
     <?php elseif ($active == 'history') : ?>

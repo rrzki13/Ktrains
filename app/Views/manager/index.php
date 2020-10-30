@@ -31,7 +31,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3><?= count($stasiun); ?></h3>
 
                             <p>Station</p>
                         </div>
@@ -46,7 +46,7 @@
                     <!-- small box -->
                     <div class="small-box bg-pink">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3><?= count($user); ?></h3>
 
                             <p>User Data</p>
                         </div>
@@ -61,7 +61,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53</h3>
+                            <h3><?= count($best_train); ?></h3>
 
                             <p>Best Train</p>
                         </div>
@@ -76,7 +76,7 @@
                     <!-- small box -->
                     <div class="small-box bg-teal">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3><?= count($kereta); ?></h3>
 
                             <p>Train List</p>
                         </div>
@@ -91,7 +91,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3><?= count($staff); ?></h3>
 
                             <p>Add Staff</p>
                         </div>
@@ -106,7 +106,7 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3><?= count($staff); ?></h3>
 
                             <p>Staff Data</p>
                         </div>

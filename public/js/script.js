@@ -9,21 +9,6 @@ const train_id = [];
 setStationData();
 getTrain();
 
-get(".btn-logout").addEventListener("click", function () {
-  const href = this.getAttribute("id");
-  Swal.fire({
-    title: "Are you sure want to logout?",
-    showDenyButton: false,
-    showCancelButton: true,
-    confirmButtonText: `Logout`,
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      document.location.href = href;
-    }
-  });
-});
-
 get("#card-main").addEventListener("click", function () {
   get(".blank").style.opacity = "1";
   get(".blank").style.pointerEvents = "auto";
@@ -235,7 +220,7 @@ get("#plusBtnInfant").addEventListener("click", function () {
     checkJml("anak");
   } else {
     get("#anakIpt").value = hasil_akhir;
-    get("#jmlTiket").value = test[0] + ", " + hasil_akhir + " bayi";
+    get("#jmlTiket").value = test[0] + ", " + hasil_akhir + " anak";
     get("#jmlBayi").innerHTML = hasil_akhir;
     checkJml("anak");
   }

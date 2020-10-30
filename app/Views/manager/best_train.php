@@ -44,7 +44,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i=0; ?>
+                                    <?php $i=1; ?>
                                     <?php foreach ($best_train as $key) : ?>
                                         <tr>
                                             <td><?= $i; ?></td>

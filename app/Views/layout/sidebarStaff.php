@@ -50,7 +50,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/" class="nav-link">
+                    <a href="/Logout" class="nav-link" id="logoutBtnStaff">
                         <i class="nav-icon fa fa-sign-out-alt"></i>
                         <p>Logout</p>
                     </a>
