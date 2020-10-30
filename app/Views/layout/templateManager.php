@@ -128,6 +128,26 @@ if (session()->get("id")) {
         <script src="/js/classes.js"></script>
         <script src="/js/function.js"></script>
         <script src="/js/profile.js"></script>
+        <?php if (session()->getFlashData('successChangeProfile')) : ?>
+            <script type="text/javascript">
+                $(function() {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000
+                    });
+
+                    setTimeout(function() {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Success Updated Profile'
+                        })
+                    }, 200);
+
+                });
+            </script>
+        <?php endif ?>
     <?php else : ?>
         <script>
             $(function() {
