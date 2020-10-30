@@ -11,10 +11,10 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="/profile/<?= session()->get("gambar"); ?>" class="img-circle elevation-2" alt="User Image" />
+                <img src="/profile/<?= session()->get("gambar"); ?>" class="img-circle elevation-2" alt="User Image" style="min-width: 35px;min-height:35px;" />
             </div>
             <div class="info">
-                <a href="#" target="blank" class="d-block"><?= session()->get("username"); ?></a>
+                <a href="/staff/MyProfile" class="d-block"><?= session()->get("username"); ?></a>
             </div>
         </div>
 
@@ -24,7 +24,7 @@
                 <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="/staff" class="nav-link <?= ($active == "home") ? "active" : ""; ?>">
+                    <a href="/staff" class="nav-link <?= ($active == "home") ? "active" : ""; ?> <?= ($active == "profile") ? "active" : ""; ?>">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Home

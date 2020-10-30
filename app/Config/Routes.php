@@ -41,6 +41,7 @@ $routes->post('/loginProses', 'Login::loginProses');
 $routes->post('/BuyMyTicket', 'Buy::index');
 $routes->post('/manager/addStaffProgress', 'manager\AddStaff::addStaffProgress');
 $routes->post('/staff/confirm', 'staff\WaitingTransaction::confirm');
+$routes->post('/editProfileStaff', 'staff\MyProfile::changeProfile');
 $routes->post('/editProfileManager', 'manager\MyProfile::changeProfile');
 
 /**

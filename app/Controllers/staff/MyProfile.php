@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\manager;
+namespace App\Controllers\staff;
 
 use App\Models\UserModel;
 use App\Controllers\BaseController;
@@ -16,11 +16,11 @@ class MyProfile extends BaseController
     public function index()
     {
         $data = [
-            "title" => "Ktrains | Manager My Profile",
+            "title" => "Ktrains | Staff My Profile",
             "active" => "profile",
             'validation' => \Config\Services::validation()
         ];
-        return view('manager/profile', $data);
+        return view('staff/profile', $data);
     }
 
     public function changeProfile()
@@ -49,7 +49,7 @@ class MyProfile extends BaseController
                 ]
             ]
         ])) {
-            return redirect()->to(base_URL('/manager/MyProfile'))->withInput();
+            return redirect()->to(base_URL('/staff/MyProfile'))->withInput();
         } else {
             // * ambil gambar
             $fileImg = $this->request->getFile('imgProfile');
@@ -57,10 +57,11 @@ class MyProfile extends BaseController
             if ($fileImg->getError() == 4) {
                 $namaImg = $this->request->getVar("old_pic");
             } else {
-                if ($this->request->getVar("old_pic") != "manager.jpg") {
+                if ($this->request->getVar("old_pic") != "staff.jpg") {
                     // * hapus gambar lama
                     unlink('profile/' . $this->request->getVar("old_pic"));
                 }
+                
                 // * generate nama
                 $namaImg = $fileImg->getRandomName();
                 // * pindahkan
@@ -96,7 +97,7 @@ class MyProfile extends BaseController
             $dataUser = $this->UserModel->getUser($this->request->getVar('id'));
             session()->set($dataUser);
 
-            return redirect()->to("/manager/MyProfile");
+            return redirect()->to("/staff/MyProfile");
         }
     }
 

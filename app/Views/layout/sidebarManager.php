@@ -11,7 +11,7 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= base_URL(); ?>/profile/<?= session()->get("gambar"); ?>" class="img-circle elevation-2" alt="User Image" style="min-width: 40px;min-height:40px"/>
+                <img src="<?= base_URL(); ?>/profile/<?= session()->get("gambar"); ?>" class="img-circle elevation-2" alt="User Image" style="min-width: 35px;min-height:35px"/>
             </div>
             <div class="info">
                 <a href="/manager/MyProfile" class="d-block"><?= session()->get("username"); ?></a>
