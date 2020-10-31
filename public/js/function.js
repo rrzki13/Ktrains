@@ -399,7 +399,7 @@ function date() {
   var tgl_akhir = new Date(get("#pulang").value);
   if (tgl_akhir.getTime() < tgl_awal.getTime()) {
     get("#berangkatValidate").innerHTML = "";
-    get("#pulangValidate").innerHTML = "Tidak boleh lebih dari hari berangkat";
+    get("#pulangValidate").innerHTML = "Tidak boleh kurang dari hari berangkat";
     return false;
   } else if (tgl_awal.getTime() == tgl_akhir.getTime()) {
     get("#pulangValidate").innerHTML = "Hari tidak boleh sama";

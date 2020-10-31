@@ -25,7 +25,7 @@ if (session()->get("id")) {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= base_URL(); ?>/css/all.min.css" />
+    <link rel="stylesheet" href="<?= base_URL(); ?>/fontawesome/all.min.css" />
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <!-- DataTables -->
@@ -67,6 +67,8 @@ if (session()->get("id")) {
     <script src="<?= base_URL(); ?>/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_URL(); ?>/js/demo.js"></script>
+    <!-- Fontawesome -->
+    <script src="<?= base_URL(); ?>/fontawesome/all.min.js"></script>
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- My Script -->

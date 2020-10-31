@@ -36,7 +36,7 @@
                             <p>Station</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-train"></i>
+                            <ion-icon name="ios-train"></ion-icon>
                         </div>
                         <a href="/manager/stationList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -80,8 +80,11 @@
 
                             <p>Train List</p>
                         </div>
-                        <div class="icon">
+                        <!-- <div class="icon">
                             <i class="fa fa-train card-icon"></i>
+                        </div> -->
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
                         </div>
                         <a href="/manager/TrainList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -111,7 +114,7 @@
                             <p>Staff Data</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-user-alt"></i>
+                            <i class="ion ion-person"></i>
                         </div>
                         <a href="/manager/staffList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>

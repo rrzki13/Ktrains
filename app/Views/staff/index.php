@@ -35,7 +35,7 @@
                             <p>Order Ticket</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-train"></i>
+                        <i class="ion ion-checkmark-circle"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -50,7 +50,7 @@
                             <p>Successful Transaction</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-check-circle "></i>
+                            <i class="ion ion-checkmark-circle"></i>
                         </div>
                         <a href="/staff/successTransaction" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -65,7 +65,7 @@
                             <p>Waiting Transaction</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-cut"></i>
+                            <i class="icon ion-checkmark-circle"></i>
                         </div>
                         <a href="/staff/waitingTransaction" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -80,7 +80,7 @@
                             <p>Failed Transaction</p>
                         </div>
                         <div class="icon">
-                            <i class="far fa-times-circle"></i>
+                        <i class="ion ion-checkmark-circle"></i>
                         </div>
                         <a href="/staff/failedTransaction" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>

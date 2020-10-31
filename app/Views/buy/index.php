@@ -86,7 +86,7 @@
                 type="text"
                 class="form-control"
                 id="namaPemesan"
-                value="Rizki"
+                value="<?= session()->get("nama_lengkap"); ?>"
                 onkeyup="justText(this)"
               />
               <small class="text-danger" id="namaPemesanTextValidate"></small>
@@ -97,7 +97,7 @@
                 type="email"
                 class="form-control"
                 id="emailPemesan"
-                value="rizki@gmail.com"
+                value="<?= session()->get("email"); ?>"
                 onkeyup="ValidateEmail(this)"
               />
               <small class="text-danger" id="emailPemesanEmailValidate"></small>
