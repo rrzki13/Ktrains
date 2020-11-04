@@ -576,12 +576,12 @@ function justUsername(r, report = true) {
       get("#" + id + "UsernameValidate").innerHTML = "Minimal 5 karakter";
     }
     return false;
-  } else if (r.value.length > 11) {
+  } else if (r.value.length > 16) {
     if (report) {
-      get("#" + id + "UsernameValidate").innerHTML = "Maksimal 10 karakter";
+      get("#" + id + "UsernameValidate").innerHTML = "Maksimal 15 karakter";
     }
     return false;
-  } else if (/^[a-zA-Z0-9]*$/.test(r.value)) {
+  } else if (/^[a-zA-Z]+[_0-9]*$/.test(r.value)) {
     if (report) {
       get("#" + id + "UsernameValidate").innerHTML = "";
     }
@@ -589,7 +589,7 @@ function justUsername(r, report = true) {
   } else {
     if (report) {
       get("#" + id + "UsernameValidate").innerHTML =
-        "Hanya boleh menggunakan huruf dan angka";
+        "Hanya boleh menggunakan huruf dan angka, contoh = kiki_123";
     }
     return false;
   }

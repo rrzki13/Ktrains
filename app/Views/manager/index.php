@@ -157,7 +157,7 @@
                                             } else {
                                                 $status = "Belum Lunas";
                                                 $statusColor = "text-danger";
-                                                if (strtotime($today) > strtotime($key['tanggal_berangkat'])) {
+                                                if (strtotime($today) >= strtotime($key['tanggal_berangkat'])) {
                                                     $status = "Gagal";
                                                     $statusColor = "text-danger";
                                                 }

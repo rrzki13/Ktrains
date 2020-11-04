@@ -35,7 +35,7 @@
                             <p>Order Ticket</p>
                         </div>
                         <div class="icon">
-                        <i class="ion ion-checkmark-circle"></i>
+                            <i class="ion ion-checkmark-circle"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -80,7 +80,7 @@
                             <p>Failed Transaction</p>
                         </div>
                         <div class="icon">
-                        <i class="ion ion-checkmark-circle"></i>
+                            <i class="ion ion-checkmark-circle"></i>
                         </div>
                         <a href="/staff/failedTransaction" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -109,25 +109,26 @@
                                 </thead>
                                 <tbody>
                                     <?php if ($order) : ?>
-                                        <?php $i=1; ?>
+                                        <?php $i = 1; ?>
                                         <?php foreach ($order as $key) : ?>
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td><?= $key['no_pesanan']; ?></td>
                                                 <td><?= $key['nama_pemesan']; ?></td>
                                                 <td id="changeTotal"><?= $key['total']; ?></td>
-                                                <?php 
-                                                    if ($key['confirmed'] == "1") {
-                                                        $status = "Lunas";
-                                                        $color = "text-success";
-                                                    }else {
+                                                <?php
+                                                if ($key['confirmed'] == "1") {
+                                                    $status = "Lunas";
+                                                    $color = "text-success";
+                                                } else {
+                                                    $color = "text-danger";
+                                                    $today = date("Y-m-d");
+                                                    if (strtotime($today) < strtotime($key['tanggal_berangkat'])) {
                                                         $status = "Belum Lunas";
-                                                        $color = "text-danger";
-                                                        $today = date("Y-m-d");
-                                                        if (strtotime($today) > strtotime($key['tanggal_berangkat'])) {
-                                                            $status = "Gagal";
-                                                        }
+                                                    } else {
+                                                        $status = "Gagal";
                                                     }
+                                                }
                                                 ?>
                                                 <td class="<?= $color; ?>"><?= $status; ?></td>
                                             </tr>

@@ -19,9 +19,9 @@ class FailedTransaction extends BaseController
 		$today = date("Y-m-d");
 		$fail = [];
 		if (count($tiket) != 0) {
-			foreach($tiket as $key) {
+			foreach ($tiket as $key) {
 				if ($key['confirmed'] == "0") {
-					if (strtotime($today) > strtotime($key['tanggal_berangkat'])) {
+					if (strtotime($today) >= strtotime($key['tanggal_berangkat'])) {
 						$fail[] = $key;
 					}
 				}

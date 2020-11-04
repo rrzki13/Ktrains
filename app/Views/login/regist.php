@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <form method="post" action="<?= base_URL(); ?>/registProses">
-                    <?= csrf_field(); ?>
+                        <?= csrf_field(); ?>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <input type="text" class="form-control inp-regist" id="namaDepan" placeholder="Nama Depan" name="namaDepan" value="<?= old("namaDepan") ?>">
@@ -28,13 +28,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <input type="text" class="form-control inp-regist" id="username" placeholder="Username" name="username" value="<?= old("username") ?>">
+                                <input type="text" class="form-control inp-regist" id="username" placeholder="Username" name="username" value="<?= old("username") ?>" autocomplete="off">
                                 <small class="text-danger" id="usernameUsernameValidate">
                                     <?= $validation->getError('username'); ?>
                                 </small>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <input type="email" class="form-control inp-regist" id="email" placeholder="Email" name="email" value="<?= old("email") ?>">
+                                <input type="email" class="form-control inp-regist" id="email" placeholder="Email" name="email" value="<?= old("email") ?>" autocomplete="off">
                                 <small class="text-danger" id="emailEmailValidate">
                                     <?= $validation->getError('email'); ?>
                                 </small>
