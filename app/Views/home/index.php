@@ -116,11 +116,11 @@
         <div class="col-md-4 shadow rounded p-3" id="pilihStasiun1">
             <h4>Pilih stasiun</h4>
             <ul class="list-group" id="listFirstStation">
-            <?php foreach($stasiun as $key) : ?>
-                <li class="list-group-item list-group-item1" id="<?= $key['code']; ?>">
-                    <?= $key['station_name']; ?> (<?= $key['code']; ?>)
-                </li>
-            <?php endforeach; ?>
+                <?php foreach ($stasiun as $key) : ?>
+                    <li class="list-group-item list-group-item1" id="<?= $key['code']; ?>">
+                        <?= $key['station_name']; ?> (<?= $key['code']; ?>)
+                    </li>
+                <?php endforeach; ?>
             </ul>
         </div>
     </div>
@@ -131,11 +131,11 @@
         <div class="col-md-4 shadow rounded p-3" id="pilihStasiun2">
             <h4>Pilih stasiun</h4>
             <ul class="list-group" id="listFirstStation">
-            <?php foreach($stasiun as $key) : ?>
-                <li class="list-group-item list-group-item2" id="<?= $key['code']; ?>">
-                    <?= $key['station_name']; ?> (<?= $key['code']; ?>)
-                </li>
-            <?php endforeach; ?>
+                <?php foreach ($stasiun as $key) : ?>
+                    <li class="list-group-item list-group-item2" id="<?= $key['code']; ?>">
+                        <?= $key['station_name']; ?> (<?= $key['code']; ?>)
+                    </li>
+                <?php endforeach; ?>
             </ul>
         </div>
     </div>
@@ -198,7 +198,16 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h2>Tiket Tersedia</h2>
+                    <div class="row my-3 justify-content-center" id="tiketGakAda">
+                        <div class="col-3 text-center">
+                            <img src="img/confused.png" class="w-100">
+                        </div>
+                    </div>
+                    <div class="row my-3 justify-content-center">
+                        <div class="col-12 text-center">
+                            <h2 id="tiketKet">Tiket Tersedia</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row mt-3" id="tiketPlace">
@@ -226,10 +235,10 @@
             <div class="row justify-content-center mt-3 mb-5">
                 <div class="col-10">
                     <div class="row justify-content-center text-center">
-                        <?php foreach($kereta as $key) : ?>
-                        <div class="col-md-4">
-                            <a href=""><?= $key['train_name']; ?></a>
-                        </div>
+                        <?php foreach ($kereta as $key) : ?>
+                            <div class="col-md-4">
+                                <a href=""><?= $key['train_name']; ?></a>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                 </div>

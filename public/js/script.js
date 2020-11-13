@@ -213,10 +213,10 @@ get("#plusBtnInfant").addEventListener("click", function () {
   const innerInput = get("#jmlTiket").value;
   const test = innerInput.split(",");
 
-  if (hasil_akhir > 4) {
-    get("#anakIpt").value = 4;
-    get("#jmlTiket").value = test[0] + ", " + 4 + " anak";
-    get("#jmlBayi").innerHTML = 4;
+  if (hasil_akhir > 1) {
+    get("#anakIpt").value = 1;
+    get("#jmlTiket").value = test[0] + ", " + 1 + " anak";
+    get("#jmlBayi").innerHTML = 1;
     checkJml("anak");
   } else {
     get("#anakIpt").value = hasil_akhir;
@@ -245,24 +245,119 @@ get("#cariTiket").addEventListener("click", function (e) {
     closeall();
     const jml_tiket =
       parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value);
-    const total = jml_tiket * 100000;
     get("#ticketResult").style.display = "block";
     setTimeout(function () {
       get(".blank").style.pointerEvents = "none";
       get(".blank").style.opacity = "0";
     }, 300);
-    setTimeout(function () {
-      get("#theLoading").style.opacity = "0";
-      get("#theLoading").style.position = "absolute";
-      get("#theTiket").style.display = "block";
-      get("#tiketPlace").innerHTML = "";
-      if (get("#check-pulang").checked) {
-        appendTiket2(jml_tiket, total);
-      } else {
-        appendTiket(jml_tiket, total);
-      }
-    }, 1500);
+    // * fetch
+    const dari = get("#dari").value.toUpperCase();
+    const ke = get("#ke").value.toUpperCase();
+    fetch(`http://localhost/ktrains-rest/api/Jadwal?dari=${dari}&ke=${ke}`)
+      .then((t) => t.json())
+      .then((t) => {
+        get("#tiketGakAda").style.display = "";
+        get("#theLoading").style.opacity = "0";
+        get("#theLoading").style.position = "absolute";
+        get("#theTiket").style.display = "block";
+        get("#tiketPlace").innerHTML = "";
+        get("#tiketKet").innerHTML = t.message;
+        if (t.status) {
+          get("#tiketGakAda").style.display = "none";
+          const data = t.data;
+          let inner = "";
+          data.forEach(d => {
+            const html = createTicket(jml_tiket, d);
+            inner += html;
+          });
+          get("#tiketPlace").innerHTML = inner;
+        }
+      });
+
+    // setTimeout(function () {
+    //   get("#theLoading").style.opacity = "0";
+    //   get("#theLoading").style.position = "absolute";
+    //   get("#theTiket").style.display = "block";
+    //   get("#tiketPlace").innerHTML = "";
+    //   if (get("#check-pulang").checked) {
+    //     appendTiket2(jml_tiket, total);
+    //   } else {
+    //     appendTiket(jml_tiket, total);
+    //   }
+    // }, 1500);
   } else {
     alert("false");
   }
 });
+
+function createTicket(jml_tiket, data) {
+  let total_harga = parseInt(data.harga_kereta) * parseInt(jml_tiket);
+  let html = /* html */ `
+    <div class="col-md-4">
+      <div class="row justify-content-center">
+        <div class="col-11 mb-3 p-3 rounded shadow" style="background-color:#fff">
+        <div class="row">
+        <div class="col-12 text-center">
+        <span class="font-weight-bold">Tiket</span>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">Nama Kereta</div>
+            <div class="col-6 text-right">${data.nama_kereta}</div>
+          </div>
+          <div class="row">
+            <div class="col-6">Jumlah tiket</div>
+            <div class="col-6 text-right">${jml_tiket}</div>
+          </div>
+          <div class="row">
+            <div class="col-6">Tanggal Berangkat</div>
+            <div class="col-6 text-right">${get("#berangkat").value}</div>
+          </div>
+          <div class="row">
+            <div class="col-6">Jam Berangkat</div>
+            <div class="col-6 text-right">${data.berangkat}</div>
+          </div>
+          <div class="row">
+            <div class="col-6">Jam Sampai</div>
+            <div class="col-6 text-right">${data.sampai}</div>
+          </div>
+          <div class="row">
+            <div class="col-6">Dari</div>
+            <div class="col-6 text-right">${data.dari}</div>
+          </div>
+          <div class="row">
+            <div class="col-6">Ke</div>
+            <div class="col-6 text-right">${data.ke}</div>
+          </div>
+          <div class="row">
+            <div class="col-6">Harga</div>
+            <div class="col-6 text-right">${formater.toRupiah(total_harga)}</div>
+          </div>
+          <div class="row">
+            <div class="col-6">Kelas</div>
+            <div class="col-6 text-right">${data.kelas_kereta}</div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">
+            <form class="d-inline" method="POST" action="">
+              <input type="hidden" name="nama_kereta" value="${data.nama_kereta}"/>
+              <input type="hidden" name="kelas_kereta" value="${data.kelas_kereta}"/>
+              <input type="hidden" name="harga_kereta" value="${data.harga_kereta}"/>
+              <input type="hidden" name="jumlahTiket" value="${jml_tiket}"/>
+              <input type="hidden" name="berangkat" value="${get("#berangkat").value}"/>
+              <input type="hidden" name="dari" value="${data.dari}"/>
+              <input type="hidden" name="ke" value="${data.ke}"/>
+              <input type="hidden" name="dewasa" value="${get("#dewasaIpt").value}"/>
+              <input type="hidden" name="anak" value="${get("#anakIpt").value}"/>
+              <input type="hidden" name="total" value="${total_harga}"/>
+              <input type="hidden" name="id_kereta" value="${data.id_kereta}"/>
+              <button class="btn btn-primary w-100" type="submit">Beli tiket</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  return html;
+}
