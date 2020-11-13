@@ -304,6 +304,7 @@ get("#cariTiket").addEventListener("click", function (e) {
 });
 
 function createTicket(jml_tiket, data) {
+  const href = "http://localhost:8080/BuyMyTicket";
   let total_harga = parseInt(data.harga_kereta) * parseInt(jml_tiket);
   let html = /* html */ `
     <div class="col-md-4">
@@ -354,30 +355,23 @@ function createTicket(jml_tiket, data) {
           </div>
           <div class="row mt-3">
             <div class="col-6">
-            <form class="d-inline" method="POST" action="">
-              <input type="hidden" name="nama_kereta" value="${
-                data.nama_kereta
-              }"/>
-              <input type="hidden" name="kelas_kereta" value="${
-                data.kelas_kereta
-              }"/>
-              <input type="hidden" name="harga_kereta" value="${
-                data.harga_kereta
-              }"/>
+            <form class="d-inline" method="POST" action="${href}">
               <input type="hidden" name="jumlahTiket" value="${jml_tiket}"/>
               <input type="hidden" name="berangkat" value="${
                 get("#berangkat").value
               }"/>
-              <input type="hidden" name="dari" value="${data.dari}"/>
-              <input type="hidden" name="ke" value="${data.ke}"/>
+              <input type="hidden" name="dari" value="${data.dari}" readonly/>
+              <input type="hidden" name="ke" value="${data.ke}" readonly/>
+              <input type="hidden" name="waktu_berangkat" value="${data.berangkat}" readonly/>
+              <input type="hidden" name="waktu_sampai" value="${data.sampai}" readonly/>
               <input type="hidden" name="dewasa" value="${
                 get("#dewasaIpt").value
-              }"/>
+              }" readonly/>
               <input type="hidden" name="anak" value="${
                 get("#anakIpt").value
-              }"/>
-              <input type="hidden" name="total" value="${total_harga}"/>
-              <input type="hidden" name="id_kereta" value="${data.id_kereta}"/>
+              }" readonly/>
+              <input type="hidden" name="total" value="${total_harga}" readonly/>
+              <input type="hidden" name="id_kereta" value="${data.id_kereta}" readonly/>
               <button class="btn btn-primary w-100" type="submit">Beli tiket</button>
             </form>
             </div>
@@ -441,7 +435,11 @@ function createTicketPulangPergi(jml_tiket, data) {
             </div>
             <div class="row">
               <div class="col-6">Harga</div>
-              <div class="col-6 text-right">${formater.toRupiah(parseInt(berangkat.harga_kereta) * (parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value)))}</div>
+              <div class="col-6 text-right">${formater.toRupiah(
+                parseInt(berangkat.harga_kereta) *
+                  (parseInt(get("#dewasaIpt").value) +
+                    parseInt(get("#anakIpt").value))
+              )}</div>
             </div>
             <div class="row">
               <div class="col-6">Kelas</div>
@@ -484,7 +482,11 @@ function createTicketPulangPergi(jml_tiket, data) {
                 </div>
                 <div class="row">
                   <div class="col-6">Harga</div>
-                  <div class="col-6 text-right">${formater.toRupiah(parseInt(pulang.harga_kereta) * (parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value)))}</div>
+                  <div class="col-6 text-right">${formater.toRupiah(
+                    parseInt(pulang.harga_kereta) *
+                      (parseInt(get("#dewasaIpt").value) +
+                        parseInt(get("#anakIpt").value))
+                  )}</div>
                 </div>
                 <div class="row">
                   <div class="col-6">Kelas</div>
@@ -493,16 +495,34 @@ function createTicketPulangPergi(jml_tiket, data) {
                 <div class="row mt-3 justify-content-end">
                 <div class="col-6">
                 <form class="d-inline" method="POST" action = "">
-                    <input type="hidden" name="id_kereta_berangkat" value="${berangkat.id_kereta}"/>
-                    <input type="hidden" name="id_kereta_pulang" value="${pulang.id_kereta}"/>
-                    <input type="hidden" name="jumlahTiket" value="${parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value)}"/>
+                    <input type="hidden" name="id_kereta_berangkat" value="${
+                      berangkat.id_kereta
+                    }"/>
+                    <input type="hidden" name="id_kereta_pulang" value="${
+                      pulang.id_kereta
+                    }"/>
+                    <input type="hidden" name="jumlahTiket" value="${
+                      parseInt(get("#dewasaIpt").value) +
+                      parseInt(get("#anakIpt").value)
+                    }"/>
                     <input type="hidden" name="berangkat" value="tes"/>
                     <input type="hidden" name="pulang" value=""/>
                     <input type="hidden" name="dari" value="${berangkat.dari}"/>
                     <input type="hidden" name="ke" value="${berangkat.ke}"/>
-                    <input type="hidden" name="dewasa" value="${get("#dewasaIpt").value}"/>
-                    <input type="hidden" name="anak" value="${get("#anakIpt").value}"/>
-                    <input type="hidden" name="total" value="${(parseInt(berangkat.harga_kereta) * (parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value)) + parseInt(pulang.harga_kereta) * (parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value)))}"/>
+                    <input type="hidden" name="dewasa" value="${
+                      get("#dewasaIpt").value
+                    }"/>
+                    <input type="hidden" name="anak" value="${
+                      get("#anakIpt").value
+                    }"/>
+                    <input type="hidden" name="total" value="${
+                      parseInt(berangkat.harga_kereta) *
+                        (parseInt(get("#dewasaIpt").value) +
+                          parseInt(get("#anakIpt").value)) +
+                      parseInt(pulang.harga_kereta) *
+                        (parseInt(get("#dewasaIpt").value) +
+                          parseInt(get("#anakIpt").value))
+                    }"/>
                     <button class="btn btn-primary w-100" type="submit">Beli tiket</button>
                   </form>
                 </div>

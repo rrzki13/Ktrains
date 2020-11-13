@@ -140,20 +140,21 @@ a {
   display: none;
 }
 
-#cardShowTiket, #tempCard {
+#cardShowTiket,
+#tempCard {
   z-index: 11;
 }
 
 #cardShowTiket {
   opacity: 0;
   pointer-events: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 #restore {
   width: 65px;
   cursor: pointer;
   height: 65px;
-  transition: .5s;
+  transition: 0.5s;
   border-radius: 32px;
   background-color: #fff;
   position: fixed;
@@ -179,19 +180,21 @@ a {
   background-color: #f5f5f5;
 }
 
-.headTiket, .footTiket {
+.headTiket,
+.footTiket {
   min-height: 25px;
   background-color: #f67524;
 }
 
 #theTiketHistory {
   opacity: 0;
-  transition: .5s;
+  transition: 0.5s;
   z-index: 9;
   pointer-events: none;
 }
 
-#noRestore, #noHistory {
+#noRestore,
+#noHistory {
   opacity: 0;
   pointer-events: none;
   position: absolute;
@@ -214,7 +217,7 @@ a {
   width: 50px;
   display: inline-block;
   cursor: pointer;
-  transition: .5s;
+  transition: 0.5s;
   overflow: hidden;
   margin-right: 1rem;
   height: 50px;
@@ -271,15 +274,51 @@ a {
   display: none;
 }
 
+.train {
+  height: auto;
+  min-height: 150px;
+  border: 4px solid #007bff;
+  border-radius: 25px;
+  transition: 0.5s;
+}
+
+.seat {
+  width: 30px;
+  display: inline;
+  user-select: none;
+  cursor: pointer;
+}
+
+.button_arrow {
+  width: 100px;
+  transition: 0.5s;
+  user-select: none;
+  cursor: pointer;
+}
+
+.start-from-zero {
+  margin-left: -450px;
+  margin-right: 450px;
+}
+
+.end-from-zero {
+  margin-left: 450px;
+  margin-right: -450px;
+}
+
 @media (max-width: 768px) {
   #right,
-        #mid {
-            display: none;
-        }
+  #mid {
+    display: none;
+  }
 
-        #left .row {
-            justify-content: center;
-        }
+  #left .row {
+    justify-content: center;
+  }
+
+  .center-in-md {
+    justify-content: center;
+  }
   .show-in-md2 {
     display: block;
   }

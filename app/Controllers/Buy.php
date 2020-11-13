@@ -10,6 +10,7 @@ class Buy extends BaseController
 			return redirect()->to(base_url());
 		}
 		$dataTest = $this->request->getVar();
+		// dd($dataTest);
 		if ($dataTest) {
 			$data = [
 				"title" => "Ktrains | Buy Ticket",

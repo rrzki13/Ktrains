@@ -4,169 +4,94 @@
 <!-- main -->
 
 <div class="container my-5" style="min-height: 400px">
+  <div class="row mb-3">
+    <div class="col-12">
+      <h3>Beli Tiket</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <input type="hidden" name="waktu_berangkat" id="waktu_berangkat" value="<?= $data_pesan_tiket['waktu_berangkat']; ?>">
+      <input type="hidden" name="waktu_sampai" id="waktu_sampai" value="<?= $data_pesan_tiket['waktu_sampai']; ?>">
+      <input type="hidden" name="stasiunAwal" id="stasiunAwal" value="<?= $data_pesan_tiket['dari']; ?>">
+      <input type="hidden" name="stasiunAkhir" id="stasiunAkhir" value="<?= $data_pesan_tiket['ke']; ?>">
+      <input type="hidden" name="id_kereta" id="id_kereta" value="<?= $data_pesan_tiket['id_kereta']; ?>">
+      <input type="hidden" class="form-control" id="dewasa" value="<?= $data_pesan_tiket['dewasa']; ?>" readonly />
+      <input type="hidden" class="form-control" id="anak" value="<?= $data_pesan_tiket['anak']; ?>" readonly />
+      <?php if (isset($data_pesan_tiket['pulang'])) : ?>
+        <input type="hidden" class="form-control" id="tglPulang" value="<?= $data_pesan_tiket['pulang']; ?>" readonly />
+      <?php endif; ?>
+      <input type="hidden" name="id_user" id="id_user" value="<?= session()->get('id'); ?>">
+      <div class="row mb-2">
+        <h4>Masukan Nama penumpang</h4>
+      </div>
+      <div class="row mb-2">
+        <?php for ($i = 0; $i < intval($data_pesan_tiket['jumlahTiket']); $i++) : ?>
+          <div class="col-md-6 mb-3">
+            <input type="text" class="form-control" id="namaPenumpang<?= $i + 1; ?>" autofocus placeholder="Nama Penumpang <?= $i + 1; ?>" />
+          </div>
+        <?php endfor; ?>
+      </div>
+      <div class="row mb-2">
+        <h4>Pilih tempat duduk</h4>
+        <input type="text" id="seat" />
+      </div>
       <div class="row mb-3">
-        <div class="col-12">
-          <h3>Beli Tiket</h3>
+        <div class="col-md-9" id="seat_select"></div>
+      </div>
+      <div class="row mb-3 center-in-md">
+        <div class="col-8">
+          <div class="row">
+            <div class="col-5">
+              <div class="row">
+                <img src="/img/button_left.png" class="button_arrow" id="gerbongSebelum" />
+              </div>
+            </div>
+            <div class="col-2 h1 text-center">
+              <h1 class="my-3" id="gerbongIni">1</h1>
+            </div>
+            <div class="col-5">
+              <div class="row justify-content-end">
+                <img src="/img/button_right.png" class="button_arrow" id="gerbongSelanjutnya" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <input type="hidden" name="id_kereta" id="id_kereta" value="<?= $data_pesan_tiket['id_kereta']; ?>">
-          <input type="hidden" name="id_user" id="id_user" value="<?= session()->get('id'); ?>">
-          <div class="row mb-2">
-            <div class="col-md-6">
-              <label for="namaKereta" class="form-label">Nama Kereta</label>
-              <input
-                type="text"
-                class="form-control"
-                id="namaKereta"
-                value="<?= $data_pesan_tiket['nama_kereta']; ?>"
-                readonly
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="jumlahTiket" class="form-label">Jumlah Tiket</label>
-              <input
-                type="text"
-                class="form-control"
-                id="jumlahTiket"
-                value="<?= $data_pesan_tiket['jumlahTiket']; ?>"
-                readonly
-              />
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-6">
-              <label for="stasiunAwal" class="form-label">Stasiun Awal</label>
-              <input
-                type="text"
-                class="form-control"
-                id="stasiunAwal"
-                value="<?= $data_pesan_tiket['dari']; ?>"
-                readonly
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="stasiunAkhir" class="form-label">Stasiun Akhir</label>
-              <input
-                type="text"
-                class="form-control"
-                id="stasiunAkhir"
-                value="<?= $data_pesan_tiket['ke']; ?>"
-                readonly
-              />
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-6">
-              <label for="dewasa" class="form-label">Dewasa</label>
-              <input
-                type="text"
-                class="form-control"
-                id="dewasa"
-                value="<?= $data_pesan_tiket['dewasa']; ?>"
-                readonly
-              />
-            </div>
-            <div class="col-md-6">
-              <label for="anak" class="form-label">Anak</label>
-              <input
-                type="text"
-                class="form-control"
-                id="anak"
-                value="<?= $data_pesan_tiket['anak']; ?>"
-                readonly
-              />
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-6">
-              <label for="namaPemesan" class="form-label">Nama Pemesan</label>
-              <input
-                type="text"
-                class="form-control"
-                id="namaPemesan"
-                value="<?= session()->get("nama_lengkap"); ?>"
-                onkeyup="justText(this)"
-              />
-              <small class="text-danger" id="namaPemesanTextValidate"></small>
-            </div>
-            <div class="col-md-6">
-              <label for="emailPemesan" class="form-label">Email Pemesan</label>
-              <input
-                type="email"
-                class="form-control"
-                id="emailPemesan"
-                value="<?= session()->get("email"); ?>"
-                onkeyup="ValidateEmail(this)"
-              />
-              <small class="text-danger" id="emailPemesanEmailValidate"></small>
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-6">
-              <label for="tglBerangkat" class="form-label"
-                >Tanggal Berangkat</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="tglBerangkat"
-                value="<?= $data_pesan_tiket['berangkat']; ?>"
-                readonly
-              />
-            </div>
-            <?php if(isset($data_pesan_tiket['pulang'])): ?>
-              <div class="col-md-6">
-              <label for="tglPulang" class="form-label"
-                >Tanggal Pulang</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="tglPulang"
-                value="<?= $data_pesan_tiket['pulang']; ?>"
-                readonly
-              />
-            </div>
-            <?php endif; ?>
-          </div>
-          <div class="row mb-3">
-            <div class="col-md-12">
-              <h3>Sub total</h3>
-              <span class="text-muted" id="total"><?= $data_pesan_tiket['total']; ?></span>
-              <small id="totalOy" class="d-none"><?= $data_pesan_tiket['total']; ?></small>
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-6">
-              <button class="btn btn-primary w-100" id="beliTiket">
-                Beli tiket
-              </button>
-              <a href="/Order" class="text-primary" id="lihatDetail"
-                >Lihat Detail</a
-              >
-            </div>
-          </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <h3>Sub total</h3>
+          <span class="text-muted" id="total"><?= $data_pesan_tiket['total']; ?></span>
+          <small id="totalOy" class="d-none"><?= $data_pesan_tiket['total']; ?></small>
         </div>
-
+      </div>
+      <div class="row mb-2">
         <div class="col-md-6">
-          <div class="row justify-content-center" id="load">
-            <div class="col-2">
-              <img src="img/833.gif" alt="load" class="w-100" />
-            </div>
-          </div>
-          <div class="row none-in-md" id="receiptTitle">
-            <div class="col-12 text-center">
-              <h4>Ini bukti pembelian mu</h4>
-            </div>
-          </div>
-          <div class="row mt-3 justify-content-center" id="receiptCard">
-            <div class="col-md-9" id="tiketPlace"></div>
-          </div>
+          <button class="btn btn-primary w-100" id="beliTiket">
+            Beli tiket
+          </button>
+          <a href="/Order" class="text-primary" id="lihatDetail">Lihat Detail</a>
         </div>
       </div>
     </div>
 
-    <!-- /main -->
+    <div class="col-md-6">
+      <div class="row justify-content-center" id="load">
+        <div class="col-2">
+          <img src="img/833.gif" alt="load" class="w-100" />
+        </div>
+      </div>
+      <div class="row none-in-md" id="receiptTitle">
+        <div class="col-12 text-center">
+          <h4>Ini bukti pembelian mu</h4>
+        </div>
+      </div>
+      <div class="row mt-3 justify-content-center" id="receiptCard">
+        <div class="col-md-9" id="tiketPlace"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /main -->
 <?= $this->endSection(); ?>
