@@ -253,38 +253,51 @@ get("#cariTiket").addEventListener("click", function (e) {
     // * fetch
     const dari = get("#dari").value.toUpperCase();
     const ke = get("#ke").value.toUpperCase();
-    fetch(`http://localhost/ktrains-rest/api/Jadwal?dari=${dari}&ke=${ke}`)
-      .then((t) => t.json())
-      .then((t) => {
-        get("#tiketGakAda").style.display = "";
-        get("#theLoading").style.opacity = "0";
-        get("#theLoading").style.position = "absolute";
-        get("#theTiket").style.display = "block";
-        get("#tiketPlace").innerHTML = "";
-        get("#tiketKet").innerHTML = t.message;
-        if (t.status) {
-          get("#tiketGakAda").style.display = "none";
-          const data = t.data;
-          let inner = "";
-          data.forEach(d => {
-            const html = createTicket(jml_tiket, d);
-            inner += html;
-          });
-          get("#tiketPlace").innerHTML = inner;
-        }
-      });
-
-    // setTimeout(function () {
-    //   get("#theLoading").style.opacity = "0";
-    //   get("#theLoading").style.position = "absolute";
-    //   get("#theTiket").style.display = "block";
-    //   get("#tiketPlace").innerHTML = "";
-    //   if (get("#check-pulang").checked) {
-    //     appendTiket2(jml_tiket, total);
-    //   } else {
-    //     appendTiket(jml_tiket, total);
-    //   }
-    // }, 1500);
+    if (get("#check-pulang").checked) {
+      fetch(
+        `http://localhost/ktrains-rest/api/PulangPergiJadwal?dari=${dari}&ke=${ke}`
+      )
+        .then((t) => t.json())
+        .then((t) => {
+          get("#tiketGakAda").style.display = "";
+          get("#theLoading").style.opacity = "0";
+          get("#theLoading").style.position = "absolute";
+          get("#theTiket").style.display = "block";
+          get("#tiketPlace").innerHTML = "";
+          get("#tiketKet").innerHTML = t.message;
+          if (t.status) {
+            get("#tiketGakAda").style.display = "none";
+            const data = t.data;
+            let inner = "";
+            data.forEach((d) => {
+              const html = createTicketPulangPergi(jml_tiket, d);
+              inner += html;
+            });
+            get("#tiketPlace").innerHTML = inner;
+          }
+        });
+    } else {
+      fetch(`http://localhost/ktrains-rest/api/Jadwal?dari=${dari}&ke=${ke}`)
+        .then((t) => t.json())
+        .then((t) => {
+          get("#tiketGakAda").style.display = "";
+          get("#theLoading").style.opacity = "0";
+          get("#theLoading").style.position = "absolute";
+          get("#theTiket").style.display = "block";
+          get("#tiketPlace").innerHTML = "";
+          get("#tiketKet").innerHTML = t.message;
+          if (t.status) {
+            get("#tiketGakAda").style.display = "none";
+            const data = t.data;
+            let inner = "";
+            data.forEach((d) => {
+              const html = createTicket(jml_tiket, d);
+              inner += html;
+            });
+            get("#tiketPlace").innerHTML = inner;
+          }
+        });
+    }
   } else {
     alert("false");
   }
@@ -331,7 +344,9 @@ function createTicket(jml_tiket, data) {
           </div>
           <div class="row">
             <div class="col-6">Harga</div>
-            <div class="col-6 text-right">${formater.toRupiah(total_harga)}</div>
+            <div class="col-6 text-right">${formater.toRupiah(
+              total_harga
+            )}</div>
           </div>
           <div class="row">
             <div class="col-6">Kelas</div>
@@ -340,15 +355,27 @@ function createTicket(jml_tiket, data) {
           <div class="row mt-3">
             <div class="col-6">
             <form class="d-inline" method="POST" action="">
-              <input type="hidden" name="nama_kereta" value="${data.nama_kereta}"/>
-              <input type="hidden" name="kelas_kereta" value="${data.kelas_kereta}"/>
-              <input type="hidden" name="harga_kereta" value="${data.harga_kereta}"/>
+              <input type="hidden" name="nama_kereta" value="${
+                data.nama_kereta
+              }"/>
+              <input type="hidden" name="kelas_kereta" value="${
+                data.kelas_kereta
+              }"/>
+              <input type="hidden" name="harga_kereta" value="${
+                data.harga_kereta
+              }"/>
               <input type="hidden" name="jumlahTiket" value="${jml_tiket}"/>
-              <input type="hidden" name="berangkat" value="${get("#berangkat").value}"/>
+              <input type="hidden" name="berangkat" value="${
+                get("#berangkat").value
+              }"/>
               <input type="hidden" name="dari" value="${data.dari}"/>
               <input type="hidden" name="ke" value="${data.ke}"/>
-              <input type="hidden" name="dewasa" value="${get("#dewasaIpt").value}"/>
-              <input type="hidden" name="anak" value="${get("#anakIpt").value}"/>
+              <input type="hidden" name="dewasa" value="${
+                get("#dewasaIpt").value
+              }"/>
+              <input type="hidden" name="anak" value="${
+                get("#anakIpt").value
+              }"/>
               <input type="hidden" name="total" value="${total_harga}"/>
               <input type="hidden" name="id_kereta" value="${data.id_kereta}"/>
               <button class="btn btn-primary w-100" type="submit">Beli tiket</button>
@@ -358,6 +385,136 @@ function createTicket(jml_tiket, data) {
         </div>
       </div>
     </div>
+  `;
+  return html;
+}
+
+function createTicketPulangPergi(jml_tiket, data) {
+  const berangkat = data.berangkat;
+  const pulang = data.pulang;
+
+  let html = /* html*/ `<div class="col-md-6">
+  <div class="row justify-content-center">
+  <div
+    class="col-11 shadow p-3 rounded mb-3"
+    style="background-color: #fff"
+  >
+    <div class="row">
+      <div class="col-6">
+        <span class="font-weight-bold">Tiket</span>
+      </div>
+      <div class="col-6 text-right text-primary">
+        <i class="fa fa-check-circle mr-2"></i>Tiket pulang pergi
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-12">
+            <div class="row mt-3">
+              <div class="col-6">Nama Kereta</div>
+              <div class="col-6 text-right">${berangkat.nama_kereta}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Jumlah tiket</div>
+              <div class="col-6 text-right">${jml_tiket}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Tanggal Berangkat</div>
+              <div class="col-6 text-right">${get("#berangkat").value}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Dari</div>
+              <div class="col-6 text-right">${berangkat.dari}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Ke</div>
+              <div class="col-6 text-right">${berangkat.ke}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Jam Berangkat</div>
+              <div class="col-6 text-right">${berangkat.berangkat}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Jam Sampai</div>
+              <div class="col-6 text-right">${berangkat.sampai}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Harga</div>
+              <div class="col-6 text-right">${formater.toRupiah(parseInt(berangkat.harga_kereta) * (parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value)))}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Kelas</div>
+              <div class="col-6 text-right">${berangkat.kelas_kereta}</div>
+            </div>
+          </div>
+          </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="row justify-content-end">
+              <div class="col-12">
+                <div class="row mt-3">
+                  <div class="col-6">Nama Kereta</div>
+                  <div class="col-6 text-right">${pulang.nama_kereta}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">Jumlah tiket</div>
+                  <div class="col-6 text-right">${jml_tiket}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">Tanggal Berangkat</div>
+                  <div class="col-6 text-right">${get("#pulang").value}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">Dari</div>
+                  <div class="col-6 text-right">${pulang.dari}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">Ke</div>
+                  <div class="col-6 text-right">${pulang.ke}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">Jam Berangkat</div>
+                  <div class="col-6 text-right">${pulang.berangkat}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">Jam Sampai</div>
+                  <div class="col-6 text-right">${pulang.sampai}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">Harga</div>
+                  <div class="col-6 text-right">${formater.toRupiah(parseInt(pulang.harga_kereta) * (parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value)))}</div>
+                </div>
+                <div class="row">
+                  <div class="col-6">Kelas</div>
+                  <div class="col-6 text-right">${pulang.kelas_kereta}</div>
+                </div>
+                <div class="row mt-3 justify-content-end">
+                <div class="col-6">
+                <form class="d-inline" method="POST" action = "">
+                    <input type="hidden" name="id_kereta_berangkat" value="${berangkat.id_kereta}"/>
+                    <input type="hidden" name="id_kereta_pulang" value="${pulang.id_kereta}"/>
+                    <input type="hidden" name="jumlahTiket" value="${parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value)}"/>
+                    <input type="hidden" name="berangkat" value="tes"/>
+                    <input type="hidden" name="pulang" value=""/>
+                    <input type="hidden" name="dari" value="${berangkat.dari}"/>
+                    <input type="hidden" name="ke" value="${berangkat.ke}"/>
+                    <input type="hidden" name="dewasa" value="${get("#dewasaIpt").value}"/>
+                    <input type="hidden" name="anak" value="${get("#anakIpt").value}"/>
+                    <input type="hidden" name="total" value="${(parseInt(berangkat.harga_kereta) * (parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value)) + parseInt(pulang.harga_kereta) * (parseInt(get("#dewasaIpt").value) + parseInt(get("#anakIpt").value)))}"/>
+                    <button class="btn btn-primary w-100" type="submit">Beli tiket</button>
+                  </form>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+      </div>
   `;
   return html;
 }
