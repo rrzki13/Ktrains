@@ -362,8 +362,12 @@ function createTicket(jml_tiket, data) {
               }"/>
               <input type="hidden" name="dari" value="${data.dari}" readonly/>
               <input type="hidden" name="ke" value="${data.ke}" readonly/>
-              <input type="hidden" name="waktu_berangkat" value="${data.berangkat}" readonly/>
-              <input type="hidden" name="waktu_sampai" value="${data.sampai}" readonly/>
+              <input type="hidden" name="waktu_berangkat" value="${
+                data.berangkat
+              }" readonly/>
+              <input type="hidden" name="waktu_sampai" value="${
+                data.sampai
+              }" readonly/>
               <input type="hidden" name="dewasa" value="${
                 get("#dewasaIpt").value
               }" readonly/>
@@ -371,7 +375,9 @@ function createTicket(jml_tiket, data) {
                 get("#anakIpt").value
               }" readonly/>
               <input type="hidden" name="total" value="${total_harga}" readonly/>
-              <input type="hidden" name="id_kereta" value="${data.id_kereta}" readonly/>
+              <input type="hidden" name="id_kereta" value="${
+                data.id_kereta
+              }" readonly/>
               <button class="btn btn-primary w-100" type="submit">Beli tiket</button>
             </form>
             </div>
@@ -386,6 +392,7 @@ function createTicket(jml_tiket, data) {
 function createTicketPulangPergi(jml_tiket, data) {
   const berangkat = data.berangkat;
   const pulang = data.pulang;
+  const href = "http://localhost:8080/BuyMyTicket";
 
   let html = /* html*/ `<div class="col-md-6">
   <div class="row justify-content-center">
@@ -494,21 +501,34 @@ function createTicketPulangPergi(jml_tiket, data) {
                 </div>
                 <div class="row mt-3 justify-content-end">
                 <div class="col-6">
-                <form class="d-inline" method="POST" action = "">
-                    <input type="hidden" name="id_kereta_berangkat" value="${
+                <form class="d-inline" method="POST" action = "${href}">
+                    <input type="hidden" name="jumlahTiket" value="${jml_tiket}"/>
+                    <input type="hidden" name="id_kereta" value="${
                       berangkat.id_kereta
                     }"/>
                     <input type="hidden" name="id_kereta_pulang" value="${
                       pulang.id_kereta
                     }"/>
-                    <input type="hidden" name="jumlahTiket" value="${
-                      parseInt(get("#dewasaIpt").value) +
-                      parseInt(get("#anakIpt").value)
+                    <input type="hidden" name="berangkat" value="${
+                      get("#berangkat").value
                     }"/>
-                    <input type="hidden" name="berangkat" value="tes"/>
-                    <input type="hidden" name="pulang" value=""/>
+                    <input type="hidden" name="pulang" value="${
+                      get("#pulang").value
+                    }"/>
                     <input type="hidden" name="dari" value="${berangkat.dari}"/>
                     <input type="hidden" name="ke" value="${berangkat.ke}"/>
+                    <input type="hidden" name="waktu_sampai_pulang" value="${
+                      pulang.berangkat
+                    }"/>
+                    <input type="hidden" name="waktu_berangkat_pulang" value="${
+                      pulang.sampai
+                    }"/>
+                    <input type="hidden" name="waktu_sampai" value="${
+                      berangkat.berangkat
+                    }"/>
+                    <input type="hidden" name="waktu_berangkat" value="${
+                      berangkat.sampai
+                    }"/>
                     <input type="hidden" name="dewasa" value="${
                       get("#dewasaIpt").value
                     }"/>
@@ -522,7 +542,7 @@ function createTicketPulangPergi(jml_tiket, data) {
                       parseInt(pulang.harga_kereta) *
                         (parseInt(get("#dewasaIpt").value) +
                           parseInt(get("#anakIpt").value))
-                    }"/>
+                    }">
                     <button class="btn btn-primary w-100" type="submit">Beli tiket</button>
                   </form>
                 </div>

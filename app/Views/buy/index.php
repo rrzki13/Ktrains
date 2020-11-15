@@ -12,6 +12,7 @@
   <div class="row">
     <div class="col-md-6">
       <small id="jml_gerbong" class="d-none"></small>
+      <small id="jml_gerbong2" class="d-none"></small>
       <input type="hidden" name="waktu_berangkat" id="waktu_berangkat" value="<?= $data_pesan_tiket['waktu_berangkat']; ?>">
       <input type="hidden" name="waktu_sampai" id="waktu_sampai" value="<?= $data_pesan_tiket['waktu_sampai']; ?>">
       <input type="hidden" name="stasiunAwal" id="stasiunAwal" value="<?= $data_pesan_tiket['dari']; ?>">
@@ -20,8 +21,11 @@
       <input type="hidden" class="form-control" id="dewasa" value="<?= $data_pesan_tiket['dewasa']; ?>" readonly />
       <input type="hidden" class="form-control" id="anak" value="<?= $data_pesan_tiket['anak']; ?>" readonly />
       <input type="hidden" class="form-control" id="tglBerangkat" value="<?= $data_pesan_tiket['berangkat']; ?>" readonly />
-      <?php if (isset($data_pesan_tiket['pulang'])) : ?>
+      <?php if (isset($data_pesan_tiket['pulang']) && isset($data_pesan_tiket['waktu_berangkat_pulang']) && isset($data_pesan_tiket['waktu_sampai_pulang']) && isset($data_pesan_tiket['id_kereta_pulang'])) : ?>
         <input type="hidden" class="form-control" id="tglPulang" value="<?= $data_pesan_tiket['pulang']; ?>" readonly />
+        <input type="hidden" class="form-control" id="waktu_berangkat_pulang" value="<?= $data_pesan_tiket['waktu_berangkat_pulang']; ?>" readonly />
+        <input type="hidden" class="form-control" id="waktu_sampai_pulang" value="<?= $data_pesan_tiket['waktu_sampai_pulang']; ?>" readonly />
+        <input type="hidden" class="form-control" id="id_kereta_pulang" value="<?= $data_pesan_tiket['id_kereta_pulang']; ?>" readonly />
       <?php endif; ?>
       <input type="hidden" name="id_user" id="id_user" value="<?= session()->get('id'); ?>">
       <div class="row mb-2">
@@ -36,8 +40,8 @@
         <?php endfor; ?>
       </div>
       <div class="row mb-2">
-        <h4>Pilih tempat duduk</h4>
-        <input type="text" id="seat" />
+        <h4>Pilih tempat duduk <?= (isset($data_pesan_tiket['pulang'])) ? "(Berangkat)" : ''; ?></h4>
+        <input type="hidden" id="seat" />
       </div>
       <div class="row mb-3">
         <div class="col-md-9" id="seat_select"></div>
@@ -61,6 +65,39 @@
           </div>
         </div>
       </div>
+
+      <!-- if pulang pergi -->
+      <?php if (isset($data_pesan_tiket['pulang']) && isset($data_pesan_tiket['waktu_berangkat_pulang']) && isset($data_pesan_tiket['waktu_sampai_pulang']) && isset($data_pesan_tiket['id_kereta_pulang'])) : ?>
+
+        <div class="row mb-2">
+          <h4>Pilih tempat duduk (Pulang)</h4>
+          <input type="hidden" id="seat2" />
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-9" id="seat_select2"></div>
+        </div>
+        <div class="row mb-3 center-in-md">
+          <div class="col-8">
+            <div class="row">
+              <div class="col-5">
+                <div class="row">
+                  <img src="/img/button_left.png" class="button_arrow" id="gerbongSebelum2" />
+                </div>
+              </div>
+              <div class="col-2 h1 text-center">
+                <h1 class="my-3" id="gerbongIni2">1</h1>
+              </div>
+              <div class="col-5">
+                <div class="row justify-content-end">
+                  <img src="/img/button_right.png" class="button_arrow" id="gerbongSelanjutnya2" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <?php endif; ?>
+
       <div class="row mb-3">
         <div class="col-md-12">
           <h3>Sub total</h3>
