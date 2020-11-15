@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 const formatter = new FormatMoney();
 const change = formatter.toRupiah(get("#total").textContent);
+let data = [];
 
 function jml_gerbong_test() {
   $.ajax({
@@ -16,6 +17,23 @@ function jml_gerbong_test() {
   });
 }
 
+function getSeat() {
+  $.ajax({
+    url: `http://localhost/ktrains-rest/api/getSeat?id_kereta=${get("#id_kereta").value}&dari=${get("#stasiunAwal").value}&ke=${get("#stasiunAkhir").value}&tanggal_berangkat=${get("#tglBerangkat").value}`,
+    type: "get",
+    dataType: "json",
+    success: function (result) {
+      if (result.status) {
+        const val = result.data;
+        val.forEach(v => {
+          data.push(v);
+        })
+      }
+    },
+  });
+}
+
+getSeat();
 jml_gerbong_test();
 get("#total").innerHTML = change;
 const Toast = Swal.mixin({
@@ -186,7 +204,9 @@ function pesanTiket(pulang) {
           <div class="row mt-1">
             <div class="col-5">Total</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right">${formatter.toRupiah(data.total)}</div>
+            <div class="col-5 text-right">${formatter.toRupiah(
+              data.total
+            )}</div>
           </div>
           <div class="row justify-content-center mt-3">
             <div class="col-12 text-center">
@@ -463,21 +483,7 @@ function postTiket(pulang) {
 }
 
 // * new one
-
-const notAvailable = [
-  "A01",
-  "A02",
-  "A03",
-  "A13",
-  "A11",
-  "A25",
-  "A27",
-  "A40",
-  "B40",
-  "C01",
-  "C02",
-  "C03",
-];
+const notAvailable = data;
 setTimeout(() => {
   createTemplateChosseSeat("A", notAvailable);
 
