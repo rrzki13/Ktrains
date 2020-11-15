@@ -1,10 +1,62 @@
 /* eslint-disable no-undef */
 const formatter = new FormatMoney();
 const change = formatter.toRupiah(get("#total").textContent);
+
+function jml_gerbong_test() {
+  $.ajax({
+    url: `http://localhost/ktrains-rest/api/Train?id=${
+      get("#id_kereta").value
+    }`,
+    type: "get",
+    dataType: "json",
+    success: function (result) {
+      let jml_gerbong_test = result.data[0].jml_gerbong;
+      get("#jml_gerbong").innerHTML = jml_gerbong_test;
+    },
+  });
+}
+
+jml_gerbong_test();
 get("#total").innerHTML = change;
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+});
 
 get("#beliTiket").addEventListener("click", function () {
-  if (justText(get("#namaPemesan")) && justText(get("#namaPemesan"))) {
+  const penumpang = Array.from(getAll(".namaPenumpang"));
+  let validated = true;
+  penumpang.forEach((p) => {
+    if (!justText(p)) {
+      validated = false;
+    }
+  });
+
+  if (get("#seat").value === "") {
+    Toast.fire({
+      icon: "warning",
+      title: `Pilih kursi terlebih dahulu`,
+    });
+    validated = false;
+  }
+
+  const splitSeatValue = get("#seat").value.split(",");
+  if (
+    splitSeatValue.length <
+    parseInt(get("#dewasa").value) + parseInt(get("#anak").value)
+  ) {
+    Toast.fire({
+      icon: "warning",
+      title: `Pilih ${
+        parseInt(get("#dewasa").value) + parseInt(get("#anak").value)
+      } kursi`,
+    });
+    validated = false;
+  }
+
+  if (validated) {
     get("#load").style.opacity = "1";
     get("#receiptTitle").style.pointerEvent = "none";
     get("#receiptTitle").style.position = "absolute";
@@ -19,14 +71,161 @@ get("#beliTiket").addEventListener("click", function () {
     if (get("#tglPulang") != null) {
       // * if tiket pulang pergi
       // TODO: buat method post untuk tiket pulang pergi
-      postTiket(get("#tglPulang").value);
+      pesanTiket(get("#tglPulang").value);
     } else {
       // * if tike sekali jalan
       // TODO: buat method post untuk tiket sekali jalan
-      postTiket(0);
+      pesanTiket(0);
     }
   }
 });
+
+function pesanTiket(pulang) {
+  let no_pesan = new Date().getTime();
+  let no_pesanan =
+    no_pesan.toString() + get("#id_kereta").value + get("#id_user").value;
+  let passengers_name_array = Array.from(getAll(".namaPenumpang"));
+  let passengers_name = "";
+  passengers_name_array.forEach((p) => {
+    if (passengers_name.length > 0) {
+      passengers_name += `,${p.value}`;
+    } else {
+      passengers_name += p.value;
+    }
+  });
+  let waktu = `${get("#waktu_berangkat").value}-${get("#waktu_sampai").value}`;
+  let data = {
+    no_pesanan: no_pesanan,
+    id_kereta: get("#id_kereta").value,
+    jumlah_tiket: parseInt(get("#dewasa").value) + parseInt(get("#anak").value),
+    stasiun_awal: get("#stasiunAwal").value,
+    stasiun_akhir: get("#stasiunAkhir").value,
+    dewasa: get("#dewasa").value,
+    bayi: get("#anak").value,
+    tanggal_berangkat: get("#tglBerangkat").value,
+    tanggal_pulang: pulang,
+    perkiraan_jam: waktu,
+    total: get("#totalOy").textContent,
+    id_pemesan: get("#id_user").value,
+    passengers_name: passengers_name,
+    seat: get("#seat").value,
+  };
+  $.ajax({
+    url: "http://localhost/ktrains-rest/api/TiketOrder",
+    type: "post",
+    dataType: "json",
+    data: data,
+    success: function (result) {
+      get("#load").style.opacity = "0";
+      get("#load").style.pointerEvent = "none";
+      get("#load").style.position = "absolute";
+      get("#receiptTitle").style.pointerEvent = "visible";
+      get("#receiptTitle").style.position = "static";
+      get("#receiptTitle").style.opacity = "1";
+      get("#receiptCard").style.pointerEvent = "visible";
+      get("#receiptCard").style.position = "static";
+      get("#receiptCard").style.opacity = "1";
+
+      if (result.status) {
+        if (pulang == 0) {
+          console.log(result);
+          Toast.fire({
+            icon: "success",
+            title: result.message,
+          });
+          const data = result.data;
+          let string = /*html*/ `<div class="card p-3 shadow" style="background-color: #fff">
+          <div class="row">
+            <div class="col-12 text-center">Receipt</div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-5">No. Pesanan</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${data.no_pesanan}</div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-5">Nama Kereta</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${data.nama_kereta}</div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-5">Jumlah Tiket</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${data.jumlah_tiket}</div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-5">Stasiun Awal</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${data.stasiun_awal}</div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-5">Stasiun Akhir</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${data.stasiun_akhir}</div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-5">Tempat Duduk</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${data.seat}</div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-5">Dewasa</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${data.dewasa}</div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-5">Anak</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${data.bayi}</div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-5">Tanggal Berangkat</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${data.tanggal_berangkat}</div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-5">Total</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${formatter.toRupiah(data.total)}</div>
+          </div>
+          <div class="row justify-content-center mt-3">
+            <div class="col-12 text-center">
+              <svg id="barcodeTiket"></svg>
+            </div>
+          </div>
+          <div class="row justify-content-center mt-3">
+            <div class="col-12 text-center">
+              <span class="text-muted"
+                >Note: harap selesaikan pembayaran</span
+              >
+            </div>
+          </div>
+        </div>
+  `;
+          get("#tiketPlace").innerHTML = string;
+          setTimeout(() => {
+            JsBarcode("#barcodeTiket", data.no_pesanan, {
+              format: "codabar",
+              lineColor: "#000",
+              width: 1.7,
+              height: 40,
+              displayValue: true,
+              background: "#fff",
+              fontSize: "17",
+            });
+          }, 200);
+        }
+      } else {
+        get("#beliTiket").style.display = "block";
+        get("#lihatDetail").style.display = "none";
+        Toast.fire({
+          icon: "warning",
+          title: result.message,
+        });
+      }
+    },
+  });
+}
 
 function postTiket(pulang) {
   let no_pesan = new Date().getTime();
@@ -264,13 +463,6 @@ function postTiket(pulang) {
 }
 
 // * new one
-// * new one
-const Toast = Swal.mixin({
-  toast: true,
-  position: "top-end",
-  showConfirmButton: false,
-  timer: 3000,
-});
 
 const notAvailable = [
   "A01",
@@ -286,133 +478,140 @@ const notAvailable = [
   "C02",
   "C03",
 ];
-createTemplateChosseSeat("A", notAvailable);
+setTimeout(() => {
+  createTemplateChosseSeat("A", notAvailable);
 
-const jml_gerbong = 11;
-get("#gerbongSebelum").addEventListener("click", function () {
-  this.style.opacity = 0.8;
-  const checkThisOut = parseInt(get("#gerbongIni").textContent) - 1;
-  if (checkThisOut > 0) {
-    const ranger = [];
-    // * get range a-z
-    for (const x of Array(26).keys()) {
-      let huruf = String.fromCharCode("A".charCodeAt(0) + x);
-      ranger.push(huruf);
-    }
-    get("#gerbongIni").innerHTML = checkThisOut;
-    get(".train").style.marginLeft = "-450px";
-    get(".train").style.marginRight = "450px";
-    get(".train").style.opacity = 0;
-    setTimeout(() => {
-      this.style.opacity = 1;
-      createTemplateChosseSeat(
-        ranger[checkThisOut - 1],
-        notAvailable,
-        false,
-        true
-      );
+  const jml_gerbong = get("#jml_gerbong").textContent;
+  get("#gerbongSebelum").addEventListener("click", function () {
+    this.style.opacity = 0.8;
+    const checkThisOut = parseInt(get("#gerbongIni").textContent) - 1;
+    if (checkThisOut > 0) {
+      const ranger = [];
+      // * get range a-z
+      for (const x of Array(26).keys()) {
+        let huruf = String.fromCharCode("A".charCodeAt(0) + x);
+        ranger.push(huruf);
+      }
+      get("#gerbongIni").innerHTML = checkThisOut;
+      get(".train").style.marginLeft = "-450px";
+      get(".train").style.marginRight = "450px";
+      get(".train").style.opacity = 0;
       setTimeout(() => {
-        get(".train").style.marginLeft = "0px";
-        get(".train").style.marginRight = "0px";
-      }, 50);
-    }, 500);
-  }
-});
-
-get("#gerbongSelanjutnya").addEventListener("click", function () {
-  this.style.opacity = 0.8;
-  const checkThisOut = parseInt(get("#gerbongIni").textContent) + 1;
-  if (checkThisOut <= jml_gerbong) {
-    const ranger = [];
-    // * get range a-z
-    for (const x of Array(26).keys()) {
-      let huruf = String.fromCharCode("A".charCodeAt(0) + x);
-      ranger.push(huruf);
+        this.style.opacity = 1;
+        createTemplateChosseSeat(
+          ranger[checkThisOut - 1],
+          notAvailable,
+          false,
+          true
+        );
+        setTimeout(() => {
+          get(".train").style.marginLeft = "0px";
+          get(".train").style.marginRight = "0px";
+        }, 50);
+      }, 500);
     }
-    get("#gerbongIni").innerHTML = checkThisOut;
-    get(".train").style.marginLeft = "450px";
-    get(".train").style.marginRight = "-450px";
-    get(".train").style.opacity = "0";
-    setTimeout(() => {
-      this.style.opacity = 1;
-      createTemplateChosseSeat(
-        ranger[checkThisOut - 1],
-        notAvailable,
-        true,
-        false
-      );
-      setTimeout(() => {
-        get(".train").style.marginLeft = "0px";
-        get(".train").style.marginRight = "0px";
-      }, 50);
-    }, 500);
-  }
-});
+  });
 
-const maxChosse = parseInt(get("#dewasa").value) + parseInt(get("#anak").value);
-document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("seat")) {
-    // * check max chosse
-    // const maxin = getAll("[data-chossen]");
-    const id = e.target.getAttribute("id");
-    const available = e.target.dataset.available;
-    if (available == "0") {
-      const checkVal = get("#seat").value;
-      const jml_check = checkVal.split(",");
-      if (jml_check.length < maxChosse) {
-        if (e.target.dataset.chossen) {
-          e.target.removeAttribute("data-chossen");
-          const valueInArray = checkVal.split(",");
-          const filterThat = valueInArray.filter((v) => !v.includes(id));
-          let theRealValue = "";
-          filterThat.map((f) => {
-            if (theRealValue.length > 0) {
-              theRealValue += `,${f}`;
-            } else {
-              theRealValue += f;
-            }
-          });
-          get("#seat").value = theRealValue;
-          e.target.src = "img/seat4.png";
-        } else {
-          e.target.setAttribute("data-chossen", "1");
-          if (checkVal.length > 0) {
-            get("#seat").value = `${checkVal},${id}`;
+  get("#gerbongSelanjutnya").addEventListener("click", function () {
+    this.style.opacity = 0.8;
+    const checkThisOut = parseInt(get("#gerbongIni").textContent) + 1;
+    if (checkThisOut <= jml_gerbong) {
+      const ranger = [];
+      // * get range a-z
+      for (const x of Array(26).keys()) {
+        let huruf = String.fromCharCode("A".charCodeAt(0) + x);
+        ranger.push(huruf);
+      }
+      get("#gerbongIni").innerHTML = checkThisOut;
+      get(".train").style.marginLeft = "450px";
+      get(".train").style.marginRight = "-450px";
+      get(".train").style.opacity = "0";
+      setTimeout(() => {
+        this.style.opacity = 1;
+        createTemplateChosseSeat(
+          ranger[checkThisOut - 1],
+          notAvailable,
+          true,
+          false
+        );
+        setTimeout(() => {
+          get(".train").style.marginLeft = "0px";
+          get(".train").style.marginRight = "0px";
+        }, 50);
+      }, 500);
+    }
+  });
+
+  const maxChosse =
+    parseInt(get("#dewasa").value) + parseInt(get("#anak").value);
+  document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("seat")) {
+      // * check max chosse
+      // const maxin = getAll("[data-chossen]");
+      const id = e.target.getAttribute("id");
+      const available = e.target.dataset.available;
+      if (available == "0") {
+        const checkVal = get("#seat").value;
+        let jml_check = checkVal.split(",");
+        let jml = jml_check.length;
+        if (get("#seat").value == "") {
+          jml = 0;
+        }
+        if (jml < maxChosse) {
+          if (e.target.dataset.chossen) {
+            e.target.removeAttribute("data-chossen");
+            const valueInArray = checkVal.split(",");
+            const filterThat = valueInArray.filter((v) => !v.includes(id));
+            let theRealValue = "";
+            filterThat.map((f) => {
+              if (theRealValue.length > 0) {
+                theRealValue += `,${f}`;
+              } else {
+                theRealValue += f;
+              }
+            });
+            get("#seat").value = theRealValue;
+            e.target.src = "img/seat4.png";
           } else {
-            get("#seat").value = id;
+            e.target.setAttribute("data-chossen", "1");
+            if (checkVal.length > 0) {
+              get("#seat").value = `${checkVal},${id}`;
+            } else {
+              get("#seat").value = id;
+            }
+            e.target.src = "img/seat5.png";
           }
-          e.target.src = "img/seat5.png";
+        } else {
+          if (e.target.dataset.chossen == "1") {
+            e.target.removeAttribute("data-chossen", "0");
+            const valueInArray = checkVal.split(",");
+            const filterThat = valueInArray.filter((v) => !v.includes(id));
+            let theRealValue = "";
+            filterThat.map((f) => {
+              if (theRealValue.length > 0) {
+                theRealValue += `,${f}`;
+              } else {
+                theRealValue += f;
+              }
+            });
+            get("#seat").value = theRealValue;
+            e.target.src = "img/seat4.png";
+          } else {
+            Toast.fire({
+              icon: "warning",
+              title: `Maksimal ${maxChosse} kursi`,
+            });
+          }
         }
       } else {
-        if (e.target.dataset.chossen == "1") {
-          e.target.removeAttribute("data-chossen", "0");
-          const valueInArray = checkVal.split(",");
-          const filterThat = valueInArray.filter((v) => !v.includes(id));
-          let theRealValue = "";
-          filterThat.map((f) => {
-            if (theRealValue.length > 0) {
-              theRealValue += `,${f}`;
-            } else {
-              theRealValue += f;
-            }
-          });
-          get("#seat").value = theRealValue;
-          e.target.src = "img/seat4.png";
-        } else {
-          Toast.fire({
-            icon: "warning",
-            title: `Maksimal ${maxChosse} kursi`,
-          });
-        }
+        Toast.fire({
+          icon: "warning",
+          title: "Kursi sudah dipesan",
+        });
       }
-    } else {
-      Toast.fire({
-        icon: "warning",
-        title: "Kursi sudah dipesan",
-      });
     }
-  }
-});
+  });
+}, 300);
 
 function createTemplateChosseSeat(
   gerbongKe,

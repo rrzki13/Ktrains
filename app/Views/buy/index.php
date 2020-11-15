@@ -11,6 +11,7 @@
   </div>
   <div class="row">
     <div class="col-md-6">
+      <small id="jml_gerbong" class="d-none"></small>
       <input type="hidden" name="waktu_berangkat" id="waktu_berangkat" value="<?= $data_pesan_tiket['waktu_berangkat']; ?>">
       <input type="hidden" name="waktu_sampai" id="waktu_sampai" value="<?= $data_pesan_tiket['waktu_sampai']; ?>">
       <input type="hidden" name="stasiunAwal" id="stasiunAwal" value="<?= $data_pesan_tiket['dari']; ?>">
@@ -18,6 +19,7 @@
       <input type="hidden" name="id_kereta" id="id_kereta" value="<?= $data_pesan_tiket['id_kereta']; ?>">
       <input type="hidden" class="form-control" id="dewasa" value="<?= $data_pesan_tiket['dewasa']; ?>" readonly />
       <input type="hidden" class="form-control" id="anak" value="<?= $data_pesan_tiket['anak']; ?>" readonly />
+      <input type="hidden" class="form-control" id="tglBerangkat" value="<?= $data_pesan_tiket['berangkat']; ?>" readonly />
       <?php if (isset($data_pesan_tiket['pulang'])) : ?>
         <input type="hidden" class="form-control" id="tglPulang" value="<?= $data_pesan_tiket['pulang']; ?>" readonly />
       <?php endif; ?>
@@ -28,7 +30,8 @@
       <div class="row mb-2">
         <?php for ($i = 0; $i < intval($data_pesan_tiket['jumlahTiket']); $i++) : ?>
           <div class="col-md-6 mb-3">
-            <input type="text" class="form-control" id="namaPenumpang<?= $i + 1; ?>" autofocus placeholder="Nama Penumpang <?= $i + 1; ?>" />
+            <input type="text" class="form-control namaPenumpang" onkeyup="justText(this)" id="namaPenumpang<?= $i + 1; ?>" autofocus placeholder="Nama Penumpang <?= $i + 1; ?>" />
+            <small class="text-danger" id="namaPenumpang<?= $i + 1; ?>TextValidate"></small>
           </div>
         <?php endfor; ?>
       </div>
