@@ -147,7 +147,7 @@
                                         <tr>
                                             <td><?= $i; ?></td>
                                             <td><?= $key['no_pesanan']; ?></td>
-                                            <td><?= $key['nama_pemesan']; ?></td>
+                                            <td><?= $key['passengers_name']; ?></td>
                                             <td id="totalInManagerHome"><?= $key['total']; ?></td>
                                             <?php
                                             $today = date("Y-m-d");

@@ -30,28 +30,54 @@ class Manager extends BaseController
 		$user = $this->UserModel->getAllUser();
 		$staff = $this->UserModel->getStaff();
 		$tiket = $this->TiketOrderModel->getConfirmed();
-
 		$bestTrain = [];
-		foreach ($tiket as $key) {
-			$jmlOrder = 0;
-			$arrayIdTrain = [];
-			if (!in_array($key['id_kereta'], $arrayIdTrain)) {
-				$jmlOrder++;
-			} else {
-				$arrayIdTrain[] = $key['id_kereta'];
+
+		$pulang_pergi_tiket = [];
+		$pulang_pergi_tiket2 = [];
+		$just_pergi = [];
+		$big_data = [];
+		if ($tiketOrder) {
+			foreach ($tiketOrder as $key) {
+				if ($key['pulang_pergi']) {
+					$pulang_pergi_tiket[] = $key;
+				} else {
+					$just_pergi[] = $key;
+				}
 			}
-			$getTrain = $this->KeretaModel->getTrainById($key['id_kereta']);
-			$bestTrain[] = [
-				"train_name" => $key['nama_kereta'],
-				"train_class" => $getTrain['train_class'],
-				"train_order" => $jmlOrder
-			];
+			if ($pulang_pergi_tiket) {
+				foreach ($pulang_pergi_tiket as $key) {
+					$test = explode("P", $key['no_pesanan']);
+					if (count($test) == 1) {
+						$pulang_pergi_tiket2[] = $key;
+					}
+				}
+
+				$big_data = [...$pulang_pergi_tiket2, ...$just_pergi];
+			} else {
+				$big_data = [...$just_pergi];
+			}
+
+			foreach ($tiket as $key) {
+				$jmlOrder = 0;
+				$arrayIdTrain = [];
+				if (!in_array($key['id_kereta'], $arrayIdTrain)) {
+					$jmlOrder++;
+				} else {
+					$arrayIdTrain[] = $key['id_kereta'];
+				}
+				$getTrain = $this->KeretaModel->getTrainById($key['id_kereta']);
+				$bestTrain[] = [
+					"train_name" => $getTrain['train_name'],
+					"train_class" => $getTrain['train_class'],
+					"train_order" => $jmlOrder
+				];
+			}
 		}
-		
+
 		$data = [
 			"title" => "Ktrains | Manager Home",
 			"active" => "home",
-			"order" => $tiketOrder,
+			"order" => $big_data,
 			"stasiun" => $stasiun,
 			"kereta" => $kereta,
 			"user" => $user,

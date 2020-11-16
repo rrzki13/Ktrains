@@ -30,7 +30,7 @@ class BestTrain extends BaseController
 			}
 			$getTrain = $this->KeretaModel->getTrainById($key['id_kereta']);
 			$bestTrain[] = [
-				"train_name" => $key['nama_kereta'],
+				"train_name" => $getTrain['train_name'],
 				"train_class" => $getTrain['train_class'],
 				"train_order" => $jmlOrder
 			];
