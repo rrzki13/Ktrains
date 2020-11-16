@@ -22,7 +22,7 @@ class WaitingTransaction extends BaseController
 		$today = date("Y-m-d");
 		$waiting = [];
 		if (count($tiket) != 0) {
-			foreach($tiket as $key) {
+			foreach ($tiket as $key) {
 				if ($key['confirmed'] == "0") {
 					if (strtotime($today) < strtotime($key['tanggal_berangkat'])) {
 						$waiting[] = $key;
@@ -30,41 +30,62 @@ class WaitingTransaction extends BaseController
 				}
 			}
 		}
+		
+		$pulang_pergi_tiket = [];
+		$pulang_pergi_tiket2 = [];
+		$just_pergi = [];
+		$big_data = [];
+		if ($waiting) {
+			foreach ($waiting as $key) {
+				if ($key['pulang_pergi']) {
+					$pulang_pergi_tiket[] = $key;
+				} else {
+					$just_pergi[] = $key;
+				}
+			}
+
+			if ($pulang_pergi_tiket) {
+				foreach ($pulang_pergi_tiket as $key) {
+					$test = explode("P", $key['no_pesanan']);
+					if (count($test) == 1) {
+						$pulang_pergi_tiket2[] = $key;
+					}
+				}
+
+				$big_data = [...$pulang_pergi_tiket2, ...$just_pergi];
+			} else {
+				$big_data = [...$just_pergi];
+			}
+		}
 		$data = [
 			"title" => "Ktrains | Staff Waiting Transaction",
 			"active" => "waiting",
-			"wait" => $waiting
+			"wait" => $big_data
 		];
 		return view('staff/waiting', $data);
 	}
 
-	public function confirm() {
+	public function confirm()
+	{
 		$order = $this->TiketOrderModel->getById($this->request->getVar("id"));
-		$data = [
-			"id_tiket_order" => $this->request->getVar("id"),
-			"no_pesanan" => $order['no_pesanan'],
-			"jml_tiket" => $order['jumlah_tiket'],
-			"stasiun_awal" => $order['stasiun_awal'],
-			"stasiun_akhir" => $order['stasiun_akhir'],
-			"tgl_berangkat" => $order['tanggal_berangkat'],
-			"tgl_pulang" => $order['tanggal_pulang'],
-			"total" => $order['total'],
-			"id_pemesan" => $order['id_pemesan'],
-			"nama_pemesan" => $order['nama_pemesan'],
-			"confirmed_by" => $this->request->getVar("confirm_by")
-		];
-
 		$dataTiketOrder = [
 			"id" => $this->request->getVar("id"),
 			"confirmed" => "1"
 		];
 
+		if ($order['pulang_pergi'] == "1") {
+			$order2 = $this->TiketOrderModel->getByNoPesanan($order['pulang_pergi_with']);
+			$dataTiketOrderPulang = [
+				"id" => $order2['id'],
+				"confirmed" => "1"
+			];
+			$this->TiketOrderModel->save($dataTiketOrderPulang);
+		}
 		$this->TiketOrderModel->save($dataTiketOrder);
-		$this->SuccessTransactionModel->insert($data);
 
 		session()->setFlashData("confirmSuccess", "confirm success");
 
-        return redirect()->to(base_url('/staff/SuccessTransaction'));
+		return redirect()->to(base_url('/staff/SuccessTransaction'));
 	}
 
 	//--------------------------------------------------------------------

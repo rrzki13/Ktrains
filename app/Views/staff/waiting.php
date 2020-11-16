@@ -52,7 +52,7 @@
                                                 <td><?= $i; ?></td>
                                                 <td><?= $key['no_pesanan']; ?></td>
                                                 <td><?= $key['jumlah_tiket']; ?></td>
-                                                <td><?= $key['nama_pemesan']; ?></td>
+                                                <td><?= $key['passengers_name']; ?></td>
                                                 <td id="changeTotal"><?= $key['total']; ?></td>
                                                 <td>
                                                     <form role="form" class="d-inline" method="POST" action="/staff/confirm">

@@ -36,5 +36,9 @@ class TiketOrderModel extends Model
     public function getRestoreTiket($id) {
         return $this->where(['id_pemesan' => $id, 'deleted' => "1"])->orderBy("deleted_in", "DESC")->findAll();
     } 
+
+    public function getByNoPesanan($no) {
+        return $this->where(['no_pesanan' => $no])->first();
+    }
     
 }

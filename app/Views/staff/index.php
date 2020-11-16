@@ -102,7 +102,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>No Pesanan</th>
-                                        <th>Nama Pemesan</th>
+                                        <th>Nama Penumpang</th>
                                         <th>Total</th>
                                         <th>Status</th>
                                     </tr>
@@ -114,7 +114,7 @@
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td><?= $key['no_pesanan']; ?></td>
-                                                <td><?= $key['nama_pemesan']; ?></td>
+                                                <td><?= $key['passengers_name']; ?></td>
                                                 <td id="changeTotal"><?= $key['total']; ?></td>
                                                 <?php
                                                 if ($key['confirmed'] == "1") {
