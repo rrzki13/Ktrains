@@ -66,89 +66,78 @@ function test(id, no_pesanan, id_user) {
           dataValue.confirmed == 0
             ? "Note: Harap Selesaikan Pembayaran"
             : "Note: Terimakasih telah mengorder tiket";
-        let string =
-          `
-          <div class="col-12">
+        let string = /* html */ `<div class="col-12">
           <div class="row">
             <div class="col-5">No. Pesanan</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right">` +
-          dataValue.no_pesanan +
-          `</div>
+            <div class="col-5 text-right">${dataValue.no_pesanan}</div>
           </div>
           <div class="row">
-            <div class="col-5">Nama Kereta</div>
+            <div class="col-5">Nama Kereta ${(dataValue.pulang_pergi == 1) ? "(Berangkat)" : ''}</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right">` +
-          dataValue.nama_kereta +
-          `</div>
+            <div class="col-5 text-right">${dataValue.nama_kereta}</div>
+          </div>
+          <div class="row pulang_pergi">
+            <div class="col-5">Nama Kereta (Pulang)</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${dataValue.nama_kereta_pulang}</div>
           </div>
           <div class="row">
             <div class="col-5">Jumlah Tiket</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right">` +
-          dataValue.jumlah_tiket +
-          `</div>
+            <div class="col-5 text-right">${dataValue.jumlah_tiket}</div>
           </div>
           <div class="row">
             <div class="col-5">Stasiun Awal</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right">` +
-          dataValue.stasiun_awal +
-          `</div>
+            <div class="col-5 text-right">${dataValue.stasiun_awal}</div>
           </div>
           <div class="row">
             <div class="col-5">Stasiun Akhir</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right">` +
-          dataValue.stasiun_akhir +
-          `</div>
+            <div class="col-5 text-right">${dataValue.stasiun_akhir}</div>
           </div>
           <div class="row">
             <div class="col-5">Dewasa</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right">` +
-          dataValue.dewasa +
-          `</div>
+            <div class="col-5 text-right">${dataValue.dewasa}</div>
           </div>
           <div class="row">
             <div class="col-5">Bayi</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right">` +
-          dataValue.bayi +
-          `</div>
+            <div class="col-5 text-right">${dataValue.bayi}</div>
           </div>
           <div class="row">
             <div class="col-5">Tanggal Berangkat</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right">` +
-          dataValue.tanggal_berangkat +
-          `</div>
+            <div class="col-5 text-right">${dataValue.tanggal_berangkat}</div>
           </div>
-          <div class="row" id="rowTglPulang">
+          <div class="row pulang_pergi">
             <div class="col-5">Tanggal Pulang</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right">` +
-          dataValue.tanggal_pulang +
-          `</div>
+            <div class="col-5 text-right">${dataValue.tanggal_pulang}</div>
+          </div>
+          <div class="row">
+            <div class="col-5">Tempat Duduk ${(dataValue.pulang_pergi == 1) ? "(Berangkat)" : ''}</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${dataValue.tempat_duduk}</div>
+          </div>
+          <div class="row pulang_pergi">
+            <div class="col-5">Tempat Duduk (Pulang)</div>
+            <div class="col-2 text-center">:</div>
+            <div class="col-5 text-right">${dataValue.tempat_duduk_pulang}</div>
           </div>
           <div class="row">
             <div class="col-5">Total</div>
             <div class="col-2 text-center">:</div>
-            <div class="col-5 text-right" id="totalCard">` +
-          dataValue.total +
-          `</div>
+            <div class="col-5 text-right" id="totalCard">${dataValue.total}</div>
           </div>
           <div class="row mt-3">
             <svg id="receiptCardBarcode"></svg>
           </div>
           <div class="row mt-2">
             <div class="col-12 text-center">
-              <span class="text-muted">
-                ` +
-          note +
-          `
-              </span>
+              <span class="text-muted">${note}</span>
             </div>
           </div>
         </div>
@@ -159,8 +148,9 @@ function test(id, no_pesanan, id_user) {
         setTimeout(() => {
           let harga = formatter.toRupiah(get("#totalCard").textContent);
           get("#totalCard").innerHTML = harga;
-          if (dataValue.tanggal_pulang == 0) {
-            get("#rowTglPulang").classList.add("d-none");
+          if (dataValue.pulang_pergi == 0) {
+            const pulang = Array.from(getAll(".pulang_pergi"));
+            pulang.forEach(p => p.classList.add("d-none"));
           }
 
           JsBarcode("#receiptCardBarcode", dataValue.no_pesanan, {

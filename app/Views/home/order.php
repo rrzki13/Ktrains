@@ -5,7 +5,7 @@
 <span id="myId" class="d-none"><?= session()->get('id'); ?></span>
 <div class="container">
     <div class="row justify-content-center mt-5">
-        <div class="col-md-4 position-absolute">
+        <div class="col-md-5 position-absolute">
             <div class="card shadow rounded w-100" id="cardShowTiket">
                 <div class="card-body">
                     <div class="row">
@@ -49,7 +49,7 @@
                                 <div class="col-6">
                                     <p class="font-weight-bold">Data Tiket</p>
                                 </div>
-                                <?php if ($key['tanggal_pulang'] != 0) : ?>
+                                <?php if ($key['pulang_pergi'] != 0) : ?>
                                     <div class="col-6 text-primary">
                                         <i class="fa fa-check-circle mr-2"></i>tiket pulang pergi
                                     </div>
