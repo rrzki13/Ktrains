@@ -18,11 +18,39 @@ class FailedTransaction extends BaseController
 		$tiket = $this->TiketOrderModel->getAllAndOrder();
 		$today = date("Y-m-d");
 		$fail = [];
-		if (count($tiket) != 0) {
+
+		$pulang_pergi_tiket = [];
+		$pulang_pergi_tiket2 = [];
+		$just_pergi = [];
+		$big_data = [];
+		if ($tiket) {
 			foreach ($tiket as $key) {
-				if ($key['confirmed'] == "0") {
-					if (strtotime($today) >= strtotime($key['tanggal_berangkat'])) {
-						$fail[] = $key;
+				if ($key['pulang_pergi']) {
+					$pulang_pergi_tiket[] = $key;
+				} else {
+					$just_pergi[] = $key;
+				}
+			}
+			if ($pulang_pergi_tiket) {
+				foreach ($pulang_pergi_tiket as $key) {
+					$test = explode("P", $key['no_pesanan']);
+					if (count($test) == 1) {
+						$pulang_pergi_tiket2[] = $key;
+					}
+				}
+
+				$big_data = [...$pulang_pergi_tiket2, ...$just_pergi];
+			} else {
+				$big_data = [...$just_pergi];
+			}
+
+
+			if (count($big_data) != 0) {
+				foreach ($tiket as $key) {
+					if ($key['confirmed'] == "0") {
+						if (strtotime($today) >= strtotime($key['tanggal_berangkat'])) {
+							$fail[] = $key;
+						}
 					}
 				}
 			}

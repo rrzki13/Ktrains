@@ -49,7 +49,7 @@
                                             <tr>
                                                 <td><?= $i; ?></td>
                                                 <td><?= $key['no_pesanan']; ?></td>
-                                                <td><?= $key['nama_pemesan']; ?></td>
+                                                <td><?= $key['passengers_name']; ?></td>
                                                 <td id="changeTotal"><?= $key['total']; ?></td>
                                             </tr>
                                             <?php $i++; ?>

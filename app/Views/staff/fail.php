@@ -54,7 +54,7 @@
                                                 <td><?= $i; ?></td>
                                                 <td><?= $key['no_pesanan']; ?></td>
                                                 <td><?= $key['jumlah_tiket']; ?></td>
-                                                <td><?= $key['nama_pemesan']; ?></td>
+                                                <td><?= $key['passengers_name']; ?></td>
                                                 <td id="changeTotal"><?= $key['total']; ?></td>
                                                 <td><?= $key['tanggal_berangkat']; ?></td>
                                             </tr>
