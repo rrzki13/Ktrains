@@ -123,9 +123,7 @@ function getHistory(key, id, id_user, no_pesanan) {
       if (data.status) {
         const dataTiket = data.data;
 
-        let string =
-          /* html */ `
-    <div class="card-tiket shadow">
+        let string =/* html */ `<div class="card-tiket shadow">
             <div class="headTiket"></div>
             <div class="bodyTiket user-select-none">
               <div class="container">
@@ -142,41 +140,41 @@ function getHistory(key, id, id_user, no_pesanan) {
                     <div class="row overflow-hidden">
                       <div class="col-6">
                         <small>nama / name</small><br />
-                        <small class="font-weight-bold">` +
-          dataTiket.nama_pemesan +
-          `</small>
+                        <small class="font-weight-bold">${dataTiket.nama_penumpang}</small>
                       </div>
                       <div class="col-6">
                         <small>no. pesanan</small><br />
-                        <small class="font-weight-bold">` +
-          dataTiket.no_pesanan +
-          `</small>
+                        <small class="font-weight-bold">${dataTiket.no_pesanan}</small>
                       </div>
                     </div>
                     <div class="row overflow-hidden">
                       <div class="col-6">
                         <small>kereta / train</small><br />
-                        <small class="font-weight-bold">` +
-          dataTiket.nama_kereta +
-          `</small>
+                        <small class="font-weight-bold">${dataTiket.nama_kereta}</small>
                       </div>
                       <div class="col-6">
                         <small>kelas / class</small><br />
-                        <small class="font-weight-bold">Ekonomi</small>
+                        <small class="font-weight-bold">${dataTiket.kelas_kereta}</small>
                       </div>
                     </div>
                     <div class="row overflow-hidden">
                       <div class="col-6">
-                        <small>berangkat</small><br />
-                        <small class="font-weight-bold">` +
-          dataTiket.stasiun_awal +
-          `</small>
+                        <small>Dari</small><br />
+                        <small class="font-weight-bold">${dataTiket.stasiun_awal}</small>
                       </div>
                       <div class="col-6">
-                        <small>tiba</small><br />
-                        <small class="font-weight-bold">` +
-          dataTiket.stasiun_akhir +
-          `</small>
+                        <small>Ke</small><br />
+                        <small class="font-weight-bold">${dataTiket.stasiun_akhir}</small>
+                      </div>
+                    </div>
+                    <div class="row overflow-hidden">
+                      <div class="col-6">
+                        <small>Perkiraan Jam</small><br />
+                        <small class="font-weight-bold">${dataTiket.jam}</small>
+                      </div>
+                      <div class="col-6">
+                        <small>Tempat duduk</small><br />
+                        <small class="font-weight-bold">${dataTiket.seat}</small>
                       </div>
                     </div>
                   </div>
