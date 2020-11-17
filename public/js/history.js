@@ -123,21 +123,21 @@ function getHistory(key, id, id_user, no_pesanan) {
       if (data.status) {
         const dataTiket = data.data;
 
-        let string =/* html */ `<div class="card-tiket shadow">
+        let string = /* html */ `<div class="card-tiket shadow">
             <div class="headTiket"></div>
             <div class="bodyTiket user-select-none">
               <div class="container">
                 <div class="row">
-                  <div class="col-6 mt-2">
+                  <div class="col-7 mt-2">
                     <img src="img/kai_2.png" width="50" />
                   </div>
-                  <div class="col-6 mt-2 text-center h5">
+                  <div class="col-5 mt-2 text-center h5">
                     BOARDING PASS
                   </div>
                 </div>
                 <div class="row mt-2">
-                  <div class="col-6">
-                    <div class="row overflow-hidden">
+                  <div class="col-7">
+                    <div class="row">
                       <div class="col-6">
                         <small>nama / name</small><br />
                         <small class="font-weight-bold">${dataTiket.nama_penumpang}</small>
@@ -147,7 +147,7 @@ function getHistory(key, id, id_user, no_pesanan) {
                         <small class="font-weight-bold">${dataTiket.no_pesanan}</small>
                       </div>
                     </div>
-                    <div class="row overflow-hidden">
+                    <div class="row">
                       <div class="col-6">
                         <small>kereta / train</small><br />
                         <small class="font-weight-bold">${dataTiket.nama_kereta}</small>
@@ -157,7 +157,7 @@ function getHistory(key, id, id_user, no_pesanan) {
                         <small class="font-weight-bold">${dataTiket.kelas_kereta}</small>
                       </div>
                     </div>
-                    <div class="row overflow-hidden">
+                    <div class="row">
                       <div class="col-6">
                         <small>Dari</small><br />
                         <small class="font-weight-bold">${dataTiket.stasiun_awal}</small>
@@ -167,7 +167,7 @@ function getHistory(key, id, id_user, no_pesanan) {
                         <small class="font-weight-bold">${dataTiket.stasiun_akhir}</small>
                       </div>
                     </div>
-                    <div class="row overflow-hidden">
+                    <div class="row">
                       <div class="col-6">
                         <small>Perkiraan Jam</small><br />
                         <small class="font-weight-bold">${dataTiket.jam}</small>
@@ -178,8 +178,10 @@ function getHistory(key, id, id_user, no_pesanan) {
                       </div>
                     </div>
                   </div>
-                  <div class="col-6">
-                    <svg id="barcodeTiketHistory"></svg>
+                  <div class="col-5">
+                    <div class="row justify-content-center">
+                      <svg id="barcodeTiketHistory"></svg>
+                    </div>
                   </div>
                 </div>
               </div>

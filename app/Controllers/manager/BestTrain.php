@@ -20,20 +20,31 @@ class BestTrain extends BaseController
 	{
 		$tiket = $this->TiketOrderModel->getConfirmed();
 		$bestTrain = [];
+		$arrayIdTrain = [];
+		$test = [];
+		$jmlOrder = 1;
 		foreach ($tiket as $key) {
-			$jmlOrder = 0;
-			$arrayIdTrain = [];
-			if (!in_array($key['id_kereta'], $arrayIdTrain)) {
-				$jmlOrder++;
-			}else {
+			$test[] = $key['id_kereta'];
+		}
+		$test2 = array_count_values($test);
+		$test3 = [];
+		foreach ($test2 as $key) {
+			$test3[] = $key;
+		}
+		$i=0;
+		foreach ($tiket as $key) {
+			if (in_array($key['id_kereta'], $arrayIdTrain)) {
+				$jmlOrder += 1;
+			} else {
 				$arrayIdTrain[] = $key['id_kereta'];
+				$getTrain = $this->KeretaModel->getTrainById($key['id_kereta']);
+				$bestTrain[] = [
+					"train_name" => $getTrain['train_name'],
+					"train_class" => $getTrain['train_class'],
+					"train_order" => $test3[$i]
+				];
+				$i++;
 			}
-			$getTrain = $this->KeretaModel->getTrainById($key['id_kereta']);
-			$bestTrain[] = [
-				"train_name" => $getTrain['train_name'],
-				"train_class" => $getTrain['train_class'],
-				"train_order" => $jmlOrder
-			];
 		}
 		$data = [
 			"title" => "Ktrains | Manager Best Train List",
