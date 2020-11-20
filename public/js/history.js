@@ -167,7 +167,7 @@ function getHistory(key, id, id_user, no_pesanan) {
                         <small class="font-weight-bold">${dataTiket.stasiun_akhir}</small>
                       </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-2">
                       <div class="col-6">
                         <small>Perkiraan Jam</small><br />
                         <small class="font-weight-bold">${dataTiket.jam}</small>
